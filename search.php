@@ -1,0 +1,41 @@
+<?php
+
+include_once 'datalayer.php';
+
+$search_input = '';
+$sort_by = 'relevance';
+$type = 'dashboardsReports';
+$functional_area = 'all';
+
+if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {
+    $subsearch_type = $_GET['subsearch_type'];
+    if (0 == strcmp("reports_by_definition", $subsearch_type)) {
+        $definition_id = $_GET['definition_id'];
+        $result = get_reports_by_definition($definition_id);
+
+        header("Content-type: application/json");
+        print(json_encode($result));
+    }
+    else if (0 == strcmp("reports_by_report", $subsearch_type)) {
+    }
+}
+
+else {
+    if (isset($_GET['search_input'])) {
+        $search_input = $_GET['search_input'];
+    }
+    if (isset($_GET['sort_by'])) {
+        $sort_by = $_GET['sort_by'];
+    }
+    if (isset($_GET['type'])) {
+        $type = $_GET['type'];
+    }
+    if (isset($_GET['functional_area'])) {
+        $functional_area = $_GET['functional_area'];
+    }
+
+    $result = get_results($search_input, $type, $sort_by, $functional_area); 
+    header("Content-type: application/json");
+    print(json_encode($result));
+}
+?>
