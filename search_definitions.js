@@ -165,7 +165,7 @@
 
         subReportsTable.classList.add("sub_reports");
         subReportsTable.style.color = 'gray';
-        subReportsTable.innerHTML = "<tr><th>Name</th><th>Description</th><th>Functional Areas</th><th>URL</th><tr>";
+        subReportsTable.innerHTML = "<tr><th>Name</th><th>Description</th><th>Functional Areas</th><th>URL</th><th>Last Revised</th><tr>";
 
         var ajax = new XMLHttpRequest();
         var url = "search.php?subsearch=true&subsearch_type=reports_by_definition&definition_id=" + definitionId;
@@ -195,6 +195,8 @@
                     var descriptionCell = newRow.insertCell();
                     var functionalCell = newRow.insertCell();
                     var urlCell = newRow.insertCell();
+                    var lastRevisedCell = newRow.insertCell();
+                    lastRevisedCell.innerHTML = (null == report['last_revised'] ? "No Last Revised Date" : report['last_revised']);
 
                     idCell.innerHTML = report['specification_id'];
                     nameCell.innerHTML = report['specification_name'];

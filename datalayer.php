@@ -84,7 +84,8 @@ function get_reports_by_definition($definition_id) {
                         $json_object->{'description'},
                         $json_object->{'functional_areas'},
                         $json_object->{'attribute_1_name'},
-                        $json_object->{'attribute_1_value'}
+                        $json_object->{'attribute_1_value'},
+                        $json_object->{'attribute_5_value'}
                     );
                 }
 
