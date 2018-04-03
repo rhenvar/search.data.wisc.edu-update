@@ -65,8 +65,14 @@ body {
     font-weight: bold;
 }
 
-#main_heading {
+h1 {
     color: #9b0000;
+    font-weight: bold;
+}
+
+h2 {
+    color: #282728;
+    font-weight: lighter; 
 }
 
 #no_results {
@@ -116,10 +122,6 @@ tr {
     margin-left: 5%;
     margin-right: 5%;
     text-align: left;
-}
-
-.title_container {
-    color: #c5050c;
 }
 
 .result_container {
