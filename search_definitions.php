@@ -39,8 +39,6 @@ if (isset($_GET['search_type'])) {
         Sort By: 
         <select id="sort_by">
             <option value="relevance">Relevance</option>
-            <option value="datesascending">Dates Ascending</option>
-            <option value="datesdescending">Dates Descending</option>
         </select>
     </div>
     <div class="styled-select">

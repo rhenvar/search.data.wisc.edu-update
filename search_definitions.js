@@ -23,6 +23,9 @@
                 search();
             }
         });
+        
+        // populate results on load
+        search();
     }
 
     /*
