@@ -21,10 +21,16 @@ readfile('./header.html');
     <script type = "text/javascript" src="search_definitions.js"></script>
 </head>
 <body>
+<div class="uw-global-bar">
+    <a class="uw-global-name-link" href="http://www.wisc.edu">U<span>niversity <span class="uw-of">of</span> </span>W<span>isconsin</span>–Madison</a>
+</div>
+
 <div class="title_container">
-    <img id="main_logo" src="https://search.data.wisc.edu/uw-crest-web.png" alt="https://brand.wisc.edu/content/uploads/2016/11/uw-crest-color-300x180.png">
-    <h1>Office of Data Management and Analytics</h1>
-    <h2>Glossary</h2>
+    <a href="https://www.wisc.edu"><img id="main_logo" src="https://search.data.wisc.edu/uw-crest-web.png" alt="https://brand.wisc.edu/content/uploads/2016/11/uw-crest-color-300x180.png"></a>
+    <div>
+        <h1>Office of Data Management &amp; Analytics Services</h1>
+        <h2>Glossary</h2>
+    </div>
 </div>
 
 <div class="search_container">

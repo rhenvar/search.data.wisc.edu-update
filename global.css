@@ -3,8 +3,14 @@
     src: url('verlagbook.otf');
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: verlagbook;
+    background-color: #f7f7f7 
 }
 
 #bar_container: {
@@ -68,6 +74,7 @@ body {
 h1 {
     color: #9b0000;
     font-weight: bold;
+    height: 20px;
 }
 
 h2 {
@@ -76,10 +83,15 @@ h2 {
 }
 
 #main_logo {
-    width: 5%;
-    height: auto;
+    width: auto;
+    height: 70px;
     float: left;
     margin-right: 1%;
+    padding-top: 20px;
+}
+
+#main_logo:hover {
+    cursor: pointer;
 }
 
 #no_results {
@@ -92,7 +104,21 @@ h2 {
     text-align: left;
     padding-left: 14px;
     float: left;
+    margin: 2%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background: white url('http://www.clker.com/cliparts/z/1/T/u/9/2/search-icon-hi.png') top left no-repeat;
+    background-position: 10px 5px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    padding: 5px 5px 5px 55px;
+    box-shadow: 2px 2px 2px gray;
 }
+
+input {
+    background-color: white;
+}
+
 
 .styled-select {
     float: left;
@@ -125,10 +151,19 @@ tr {
     background-color: lightgray;
 }
 
-.title_container, .result_container, .search_container {
+.result_container, .search_container {
     margin-left: 5%;
     margin-right: 5%;
     text-align: left;
+}
+
+.title_container {
+    background-color: #fff;
+    text-align: left;
+    margin: 0;
+    margin-top: -7px;
+    padding: 25px;
+    border-bottom: 1px solid #ccc; 
 }
 
 .result_container {
@@ -142,4 +177,38 @@ tr {
 .sub_reports {
     display: inline;
     width: 100%;
+}
+
+.uw-global-bar {
+    background-color: #c5050c;
+    color: #fff;
+    padding: 0 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-size: .825rem;
+    font-weight: 700;
+    padding: 12px;
+}
+
+.uw-global-name-link:active, .uw-global-name-link:hover, .uw-global-name-link:visited {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.uw-global-name-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
