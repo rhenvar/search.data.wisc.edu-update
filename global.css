@@ -75,6 +75,13 @@ h2 {
     font-weight: lighter; 
 }
 
+#main_logo {
+    width: 5%;
+    height: auto;
+    float: left;
+    margin-right: 1%;
+}
+
 #no_results {
     display: none;
 }

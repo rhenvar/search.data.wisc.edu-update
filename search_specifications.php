@@ -15,16 +15,10 @@ if (isset($_GET['search_type'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<?php
+readfile('./header.html');
+?>
     <script type = "text/javascript" src="search_specifications.js"></script>
-    <link href="datapage.css" re;="stylesheet" type="text/css">
-    <link href="global.css" rel="stylesheet" type="text/css">
-    <link rel="icon" href="https://brand.wisc.edu/content/uploads/2017/06/cropped-favicon_512-32x32.png" sizes="32x32">
-    <link rel="icon" href="https://brand.wisc.edu/content/uploads/2017/06/cropped-favicon_512-192x192.png" sizes="192x192">
-
-    <title>
-        DMA Specifications Portal
-    </title>
 </head>
 <body>
 <div class="title_container">
