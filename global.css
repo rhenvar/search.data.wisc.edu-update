@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+    color: #0479a8; 
+}
+
 @font-face {
     font-family: verlagbook;
     src: url('verlagbook.otf');
@@ -6,6 +11,9 @@
 body, html {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -127,13 +135,36 @@ input {
 
 #submit {
     width:10%;
-    height: 46px;
-    color: red;
+    height: 40px;
+    color: white;
+    margin-top: 2%;
+    margin-left: -1%;
+    background-color: #c5050c;	
+    border: none;
+    box-shadow: 2px 2px 2px gray;
+}
+
+
+a:link {
+    color: #0479a8;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.visited {
+    color: purple;
+}
+
+#submit:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    box-shadow: 2px 2px 2px gray;
 }
 
 td, th {
@@ -148,7 +179,11 @@ th {
 }
 
 tr {
-    background-color: lightgray;
+    background-color: #dadfe1;
+}
+
+tr:nth-child(odd) {
+    background-color: white;
 }
 
 .result_container, .search_container {
@@ -164,10 +199,14 @@ tr {
     margin-top: -7px;
     padding: 25px;
     border-bottom: 1px solid #ccc; 
+    width: 100%;
 }
 
 .result_container {
     display: none;
+    width: 75%;
+    margin-left: 0px;
+    padding: 2%;
 }
 
 .result {
@@ -193,6 +232,7 @@ tr {
     font-size: .825rem;
     font-weight: 700;
     padding: 12px;
+    width: 100%;
 }
 
 .uw-global-name-link:active, .uw-global-name-link:hover, .uw-global-name-link:visited {
@@ -205,10 +245,4 @@ tr {
     text-decoration: none;
 }
 
-a {
-    text-decoration: none;
-}
 
-a:hover {
-    text-decoration: underline;
-}

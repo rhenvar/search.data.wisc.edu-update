@@ -62,7 +62,8 @@ readfile('./header.html');
     <br/>
 </div>
 
-<div class="title_container"><h3>Results</h3></div>
+<h3 id="results_title">Results</h3>
+
 <div class="result_container">
 
     <table id="dashboards_reports_table">

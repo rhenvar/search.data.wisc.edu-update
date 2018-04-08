@@ -155,12 +155,12 @@
             relatedDashboardsElement.innerHTML = "<a href='#sub_reports_table'>Related Dashboards/Reports</a>";
             relatedDashboardsElement.onclick = showRelatedReportsByDefinition;
             relatedReports.appendChild(relatedDashboardsElement);
-
         }
     }
 
     // Gray out background and show screen overlay of related reports
     function showRelatedReportsByDefinition() {
+        this.childNodes[0].classList.add("visited");
         var definitionId = this.parentElement.parentElement.firstChild.innerHTML;
         // need an overlay container for subReportsTable
         var subReportsTable = document.createElement("table");
