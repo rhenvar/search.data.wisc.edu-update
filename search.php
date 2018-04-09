@@ -1,6 +1,7 @@
 <?php
 
 include_once 'datalayer.php';
+include_once 'redis_layer.php';
 
 $search_input = '';
 $sort_by = 'relevance';
@@ -34,8 +35,22 @@ else {
         $functional_area = $_GET['functional_area'];
     }
 
-    $result = get_results($search_input, $type, $sort_by, $functional_area); 
-    header("Content-type: application/json");
-    print(json_encode($result));
+    if (strcmp($type, "dashboardsReports") == 0 && specifications_set()) {
+        $result = get_redis_specifications($search_input, $sort_by, $functional_area);
+        header("Content-type: application/json");
+        print(json_encode($result));
+
+    }
+    else if (strcmp($type, "dataDefinitions") == 0 && definitions_set()) {
+        $result = get_redis_definitions($search_input, $sort_by, $functional_area);
+        header("Content-type: application/json");
+        print(json_encode($result));
+    }
+    else {
+        $result = get_results($search_input, $type, $sort_by, $functional_area); 
+        header("Content-type: application/json");
+        print(json_encode($result));
+    }
+
 }
 ?>

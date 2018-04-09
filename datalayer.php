@@ -16,9 +16,6 @@ function get_results_by_relevance($search_input, $type, $sort_by, $functional_ar
         $link->exec('USE itdb_production');
 
         $stmt = $link->query($qb->build_query(), PDO::FETCH_ASSOC);
-        //$stmt = $link->query("SELECT *, ((specification_name LIKE '%Trends%')) AS count_words FROM specification_versions
-        //                    WHERE (specification_name LIKE '%Trends%') ORDER BY count_words", PDO::FETCH_ASSOC);
-        //$stmt = $link->query("SELECT * FROM specification_versions WHERE specification_name LIKE '%Trends%'", PDO::FETCH_ASSOC);
 
         if ($stmt) {
             $stmt_array = array();
@@ -33,8 +30,8 @@ function get_results_by_relevance($search_input, $type, $sort_by, $functional_ar
                         $json_object->{'specification_type'},
                         $json_object->{'description'},
                         $json_object->{'functional_areas'},
-                        $json_object->{'attribute_1_name'},
-                        $json_object->{'attribute_1_value'},
+                        $json_object->{'attribute_4_name'},
+                        $json_object->{'attribute_4_value'},
                         $json_object->{'last_revised'}
                     );
                 }
@@ -83,12 +80,11 @@ function get_reports_by_definition($definition_id) {
                         $json_object->{'specification_type'},
                         $json_object->{'description'},
                         $json_object->{'functional_areas'},
-                        $json_object->{'attribute_1_name'},
-                        $json_object->{'attribute_1_value'},
+                        $json_object->{'attribute_4_name'},
+                        $json_object->{'attribute_4_value'},
                         $json_object->{'attribute_5_value'}
                     );
                 }
-
                 array_push($stmt_array, $obj);
             }
             return $stmt_array;

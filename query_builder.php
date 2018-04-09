@@ -61,11 +61,9 @@ class QueryBuilder {
             $order_by = "last_revised";
         }
 
-        // ORIGINAL BEFORE COUNTING WORDS 
-        //return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_1_name, sva.attribute_1_value, (" . join(" + ", $column_like_array) . ") AS count_words FROM specification_versions sv LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%' ORDER BY count_words DESC";
         return "
   SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM 
-        (SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_1_name, sva.attribute_1_value, sva.attribute_5_value AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words 
+        (SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words 
             FROM specification_versions sv 
                 LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
 

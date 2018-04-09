@@ -102,7 +102,7 @@
             descriptionCell.innerHTML = report['description_val'];
             functionalCell.innerHTML = report['functional_areas'];
 
-            var urlVal = report['attribute_value'];
+            var urlVal = report['attribute_4_value'];
             if (null == urlVal || "null" == urlVal) {
                 urlCell.innerHTML = "No links found";
             }
