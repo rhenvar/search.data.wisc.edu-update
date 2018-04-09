@@ -43,8 +43,14 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
          }
          else {
              if (strcmp('dates', $sort_by) == 0) {
-                 usort($results, "cmp_date");
-                 return $results;
+                 $filtered_array = array();
+                 foreach ($results as $result) {
+                     if (contains_area($result->functional_areas, $functional_areas_table[$functional_area])) {
+                         array_push($filtered_array, $result);
+                     }
+                 }
+                 usort($filtered_array, "cmp_date");
+                 return $filtered_array;
              }
              if (strcmp('', $search_input) != 0 && strcmp('relevance', $sort_by) == 0) {
                  $filtered_array = array();
