@@ -36,8 +36,7 @@ readfile('./header.html');
         Sort By: 
         <select id="sort_by">
             <option value="relevance">Relevance</option>
-            <option value="datesascending">Dates Ascending</option>
-            <option value="datesdescending">Dates Descending</option>
+            <option value="dates">Dates</option>
         </select>
     </div>
     <div class="styled-select">

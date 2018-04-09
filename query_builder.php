@@ -54,11 +54,8 @@ class QueryBuilder {
         if (strcmp($sort_by, "relevance") == 0) {
             $order_by = "ratio";
         }
-        else if (strcmp($sort_by, "datesascending") == 0) {
+        else if (strcmp($sort_by, "dates") == 0) {
             $order_by = "- last_revised";
-        }
-        else if (strcmp($sort_by, "datesdescending") == 0) {
-            $order_by = "last_revised";
         }
 
         return "
