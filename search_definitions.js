@@ -249,7 +249,7 @@
 
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'none';
-        document.getElementById("results_title").innerHTML = "Sorry, no Results Found for term '" + input + "' under functional area '" + functionalArea + "'";
+        document.getElementById("results_title").innerHTML = "Sorry, no Definitions found for term '" + input + "' under functional area '" + functionalArea + "'";
     }
 
     function deleteOverlayResults() {

@@ -19,10 +19,19 @@ if (isset($_GET['search_type'])) {
 readfile('./header.html');
 ?>
     <script type = "text/javascript" src="search_specifications.js"></script>
+
 </head>
 <body>
+<div class="uw-global-bar">
+    <a class="uw-global-name-link" href="http://www.wisc.edu">U<span>niversity <span class="uw-of">of</span> </span>W<span>isconsin</span>–Madison</a>
+</div>
+
 <div class="title_container">
-    <h1>Looking for dashboards, reports, or data definitions?</h1>
+    <a href="https://www.wisc.edu"><img id="main_logo" src="https://search.data.wisc.edu/uw-crest-web.png" alt="https://brand.wisc.edu/content/uploads/2016/11/uw-crest-color-300x180.png"></a>
+    <div>
+        <h1>Office of Data Management &amp; Analytics Services</h1>
+        <h2>Dashboards and Reports</h2>
+    </div>
 </div>
 
 <div class="search_container">
@@ -32,13 +41,7 @@ readfile('./header.html');
         <input type="submit" value="Search" id="submit">
     </div>
     <br/>
-    <div class="styled-select">
-        Sort By: 
-        <select id="sort_by">
-            <option value="relevance">Relevance</option>
-            <option value="dates">Dates</option>
-        </select>
-    </div>
+    <br/>
     <div class="styled-select">
         Functional Area:
         <select id="functional_area">
@@ -51,11 +54,19 @@ readfile('./header.html');
             <option value="students">Students</option>
         </select>
     </div>
+    <div class="styled-select">
+        Sort By: 
+        <select id="sort_by">
+            <option value="relevance">Relevance</option>
+            <option value="dates">Dates</option>
+        </select>
+    </div>
     <br/>
     <br/>
 </div>
 
-<div class="title_container"><h3>Results</h3></div>
+<h3 id="results_title">Results</h3>
+
 <div class="result_container">
 
     <table id="dashboards_reports_table">
@@ -78,10 +89,6 @@ readfile('./header.html');
             <th>Related Dashboards/Reports</th>
         </tr>
     </table>
-
-    <div id="no_results">
-        <h3>Sorry, no Results Found</h3>
-    </div>
 </div>
 
 </body>

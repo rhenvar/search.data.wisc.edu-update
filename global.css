@@ -144,7 +144,10 @@ input {
 .styled-select {
     float: left;
     margin-left: 2%;
-    margin-right: 6%;
+}
+
+#sort_by {
+    width: 155px;
 }
 
 #submit {

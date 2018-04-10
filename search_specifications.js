@@ -17,6 +17,8 @@
         document.getElementById('submit').onclick = search; 
         document.getElementById('sort_by').onchange = search;
         document.getElementById('functional_area').onchange = search;
+        document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
+
 
         $('#search_input').keyup(function(event) {
             if (event.keyCode === 13) {
@@ -72,7 +74,6 @@
     function showReports(response) {
         document.getElementById('data_definitions_table').style.display = 'none';
         document.getElementById('dashboards_reports_table').style.display = 'block';
-        document.getElementById('no_results').style.display = 'none';
 
         var reportsTable = document.getElementById('dashboards_reports_table');
 
@@ -81,6 +82,9 @@
         if (0 == reportsJson.length) {
             noResults();
             return;
+        }
+        else {
+            document.getElementById("results_title").innerHTML = "Results (" + reportsJson.length + ")";
         }
 
         for (var i = 0; i < reportsJson.length; i++) {
@@ -123,7 +127,6 @@
     function showDefinitions(response) {
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'block';
-        document.getElementById('no_results').style.display = 'none';
 
         var definitionsTable = document.getElementById('data_definitions_table');
 
@@ -240,9 +243,14 @@
     }
 
     function noResults() {
+        var input = document.getElementById("search_input").value;
+        var functionalElement = document.getElementById('functional_area');
+        var functionalArea = functionalElement.options[functionalElement.selectedIndex].innerHTML;
+
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'none';
-        document.getElementById('no_results').style.display = 'block';
+        document.getElementById('results_title').innerHTML = "Sorry, no Specifications found for term '" + input + "' under functional area '" + functionalArea + "'";
+ 
     }
 
     function deleteOverlayResults() {
