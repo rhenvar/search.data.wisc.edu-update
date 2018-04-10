@@ -3,6 +3,10 @@ a {
     color: #0479a8; 
 }
 
+#banner_link:hover {
+    text-decoration: none !important;
+}
+
 @font-face {
     font-family: verlagbook;
     src: url('verlagbook.otf');
@@ -18,7 +22,8 @@ body, html {
 
 body {
     font-family: verlagbook;
-    background-color: #f7f7f7 
+    background-color: #f7f7f7;
+    position: relative;
 }
 
 #bar_container: {
@@ -85,9 +90,17 @@ h1 {
     height: 20px;
 }
 
+h1:hover {
+    cursor: pointer;
+}
+
 h2 {
     color: #282728;
     font-weight: lighter; 
+}
+
+h3 {
+    margin-left: 2%;
 }
 
 #main_logo {
@@ -107,7 +120,7 @@ h2 {
 }
 
 #search_input {
-    width: 65%;
+    width: 55%;
     height: 40px;
     text-align: left;
     padding-left: 14px;
@@ -130,6 +143,7 @@ input {
 
 .styled-select {
     float: left;
+    margin-left: 2%;
     margin-right: 6%;
 }
 
@@ -165,6 +179,8 @@ a:hover {
 table {
     border-collapse: collapse;
     box-shadow: 2px 2px 2px gray;
+    table-layout: fixed;
+    width: 1275px;
 }
 
 td, th {
@@ -190,6 +206,10 @@ tr:nth-child(odd) {
     margin-left: 5%;
     margin-right: 5%;
     text-align: left;
+}
+
+.result_container {
+    text-align: center !important;
 }
 
 .title_container {

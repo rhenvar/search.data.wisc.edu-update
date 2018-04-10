@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
 include_once 'specification.php';
 include_once 'data_definition.php';
 include_once 'query_builder.php';

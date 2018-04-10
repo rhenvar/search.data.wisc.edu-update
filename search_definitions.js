@@ -15,8 +15,8 @@
         }
 
         document.getElementById('submit').onclick = search; 
-        document.getElementById('sort_by').onchange = search;
         document.getElementById('functional_area').onchange = search;
+        document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
 
         $('#search_input').keyup(function(event) {
             if (event.keyCode === 13) {
@@ -45,8 +45,7 @@
 
         var ajax = new XMLHttpRequest();
 
-        var sortByElement = document.getElementById('sort_by');
-        var sortBy = sortByElement.options[sortByElement.selectedIndex].value;
+        var sortBy = "relevance"; 
 
         var typeElements = document.getElementsByName('type');
         var type = 'dataDefinitions';
@@ -73,7 +72,6 @@
     function showReports(response) {
         document.getElementById('data_definitions_table').style.display = 'none';
         document.getElementById('dashboards_reports_table').style.display = 'block';
-        document.getElementById('no_results').style.display = 'none';
 
         var reportsTable = document.getElementById('dashboards_reports_table');
 
@@ -124,7 +122,6 @@
     function showDefinitions(response) {
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'block';
-        document.getElementById('no_results').style.display = 'none';
 
         var definitionsTable = document.getElementById('data_definitions_table');
 
@@ -133,6 +130,9 @@
         if (0 == definitionsJson.length) {
             noResults();
             return;
+        }
+        else {
+            document.getElementById("results_title").innerHTML = "Results (" + definitionsJson.length + ")";
         }
 
         for (var i = 0; i < definitionsJson.length; i++) {
@@ -243,9 +243,13 @@
     }
 
     function noResults() {
+        var input = document.getElementById("search_input").value;
+        var functionalElement = document.getElementById('functional_area');
+        var functionalArea = functionalElement.options[functionalElement.selectedIndex].innerHTML;
+
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'none';
-        document.getElementById('no_results').style.display = 'block';
+        document.getElementById("results_title").innerHTML = "Sorry, no Results Found for term '" + input + "' under functional area '" + functionalArea + "'";
     }
 
     function deleteOverlayResults() {

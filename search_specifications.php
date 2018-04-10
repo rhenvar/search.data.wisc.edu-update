@@ -27,7 +27,7 @@ readfile('./header.html');
 
 <div class="search_container">
     <div id="bar_container">
-        <input type="text" id="search_input" placeholder="What are you looking for? E.g. &quot;enrollments&quot;, &quot;student course history&quot;, &quot;where do alumni live&quot;" id="search_bar">
+        <input type="text" id="search_input" placeholder="Search" id="search_bar">
 
         <input type="submit" value="Search" id="submit">
     </div>

@@ -35,17 +35,12 @@ readfile('./header.html');
 
 <div class="search_container">
     <div id="bar_container">
-        <input type="text" id="search_input" placeholder="What are you looking for? E.g. &quot;enrollments&quot;, &quot;student course history&quot;, &quot;where do alumni live&quot;" id="search_bar">
+        <input type="text" id="search_input" placeholder="Search" id="search_bar">
 
         <input type="submit" value="Search" id="submit">
     </div>
     <br/>
-    <div class="styled-select">
-        Sort By: 
-        <select id="sort_by">
-            <option value="relevance">Relevance</option>
-        </select>
-    </div>
+    <br/>
     <div class="styled-select">
         Functional Area:
         <select id="functional_area">
@@ -86,10 +81,6 @@ readfile('./header.html');
             <th>Related Dashboards/Reports</th>
         </tr>
     </table>
-
-    <div id="no_results">
-        <h3>Sorry, no Results Found</h3>
-    </div>
 </div>
 
 </body>

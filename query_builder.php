@@ -78,6 +78,8 @@ class QueryBuilder {
     // Related Dashboards/Reports
     function query_definitions($search_input, $sort_by, $functional_area) {
 
+        $sorting_decision = "ratio DESC";
+
         if (0 == strcmp('relevance', $sort_by)) {
             $column_like_array = array();
             $input = explode(" ", $search_input);
@@ -87,13 +89,17 @@ class QueryBuilder {
                 array_push($column_like_array, " (name LIKE '%$input_word%') ");
             }
 
+            if (0 == strcmp('', $search_input)) {
+                $sorting_decision = "name ASC";
+            }
+
             $functional_resolved = $this->functional_areas_table[$functional_area];
 
             return "SELECT *, count_words / ratio_words AS ratio FROM 
                 (
                     SELECT DISTINCT definition_id, name, functional_definition, functional_areas , (" . join(" + ", $column_like_array) . ") AS count_words, LENGTH(name) + 1 - (LENGTH(REPLACE(name, ' ', ''))) AS ratio_words FROM definition_versions WHERE (" . join(" OR ", $column_like_array) . ") AND version_latest_approved = 1 AND name NOT LIKE 'IA%' AND functional_areas LIKE '%$functional_resolved%' ORDER BY count_words DESC
                 ) AS Results
-                ORDER BY ratio DESC, functional_areas";
+                ORDER BY $sorting_decision, functional_areas";
         }
     }
 

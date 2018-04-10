@@ -123,3 +123,9 @@ function specifications_set() {
         return false;
     }
 }
+
+function definitions_set() {
+    return false;
+}
+
+?>
