@@ -58,16 +58,16 @@ readfile('./header.html');
         Sort By: 
         <select id="sort_by">
             <option value="relevance">Relevance</option>
-            <option value="dates">Dates</option>
+            <option value="dates">Last Revised</option>
         </select>
     </div>
     <br/>
     <br/>
 </div>
 
-<h3 id="results_title">Results</h3>
 
 <div class="result_container">
+    <h3 id="results_title">Results</h3>
 
     <table id="dashboards_reports_table">
         <tr>
@@ -90,6 +90,8 @@ readfile('./header.html');
         </tr>
     </table>
 </div>
+
+<img id="loading" src="https://search.data.wisc.edu/loading.gif">
 
 </body>
 </html>
