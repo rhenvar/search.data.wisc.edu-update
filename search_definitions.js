@@ -37,6 +37,8 @@
      */
     function search() {
         //var searchType = "all";
+        document.getElementById("loading").style.display = "block";
+        document.getElementsByClassName("result_container")[0].style.display = "none";
         document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Functional Areas</th><th>URL</th><th>Last Revised</th></tr>";
         document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
 
@@ -64,8 +66,9 @@
         console.log(this.responseText);
 
         if (200 == this.status) {
-            document.getElementsByClassName('result_container')[0].style.display = 'block'; 
             showDefinitions(this);
+            document.getElementById("loading").style.display = "none";
+            document.getElementsByClassName('result_container')[0].style.display = 'block'; 
         }
     }
 
@@ -243,6 +246,7 @@
     }
 
     function noResults() {
+        document.getElementById("loading").style.display = "none";
         var input = document.getElementById("search_input").value;
         var functionalElement = document.getElementById('functional_area');
         var functionalArea = functionalElement.options[functionalElement.selectedIndex].innerHTML;
@@ -250,6 +254,8 @@
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'none';
         document.getElementById("results_title").innerHTML = "Sorry, no Definitions found for term '" + input + "' under functional area '" + functionalArea + "'";
+        document.getElementsByClassName("result_container")[0].style.display = "block";
+
     }
 
     function deleteOverlayResults() {

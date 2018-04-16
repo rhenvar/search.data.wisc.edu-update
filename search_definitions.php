@@ -57,9 +57,9 @@ readfile('./header.html');
     <br/>
 </div>
 
-<h3 id="results_title">Results</h3>
 
 <div class="result_container">
+    <h3 id="results_title">Results</h3>
 
     <table id="dashboards_reports_table">
         <tr>
@@ -82,6 +82,7 @@ readfile('./header.html');
         </tr>
     </table>
 </div>
+<img id="loading" src="https://search.data.wisc.edu/loading.gif">
 
 </body>
 </html>
