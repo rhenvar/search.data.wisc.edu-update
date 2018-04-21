@@ -47,7 +47,7 @@ else {
         print(json_encode($result));
     }
     else {
-        $result = get_results($search_input, $type, $sort_by, $functional_area); 
+        $result = get_results($search_input, $type, $sort_by, $functional_area);
         header("Content-type: application/json");
         print(json_encode($result));
     }

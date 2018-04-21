@@ -8,7 +8,6 @@ readfile('./header.html');
 </head>
 <body>
 <input type="submit" id="store_specifications" value="Store All Specifications">
+<input type="submit" id="store_definitions" value="Store All Definitions">
 </body>
 </html>
-
-

@@ -14,7 +14,7 @@
             search();
         }
 
-        document.getElementById('submit').onclick = search; 
+        document.getElementById('submit').onclick = search;
         document.getElementById('functional_area').onchange = search;
         document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
 
@@ -23,7 +23,7 @@
                 search();
             }
         });
-        
+
         // populate results on load
         search();
     }
@@ -47,7 +47,7 @@
 
         var ajax = new XMLHttpRequest();
 
-        var sortBy = "relevance"; 
+        var sortBy = "relevance";
 
         var typeElements = document.getElementsByName('type');
         var type = 'dataDefinitions';
@@ -55,7 +55,7 @@
         var functionalElement = document.getElementById('functional_area');
         var functionalArea = functionalElement.options[functionalElement.selectedIndex].value;
 
-        var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea; 
+        var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea;
 
         ajax.open("GET", url, true);
         ajax.onload = processResponse;
@@ -68,7 +68,7 @@
         if (200 == this.status) {
             showDefinitions(this);
             document.getElementById("loading").style.display = "none";
-            document.getElementsByClassName('result_container')[0].style.display = 'block'; 
+            document.getElementsByClassName('result_container')[0].style.display = 'block';
         }
     }
 
@@ -147,7 +147,7 @@
             var nameCell = newRow.insertCell();
             var definitionCell = newRow.insertCell();
             var functionalAreasCell = newRow.insertCell();
-            var relatedReports = newRow.insertCell(); 
+            var relatedReports = newRow.insertCell();
 
             idCell.innerHTML = definition['definition_id'];
             nameCell.innerHTML = definition['definition_name'];
@@ -155,8 +155,13 @@
             functionalAreasCell.innerHTML = definition['functional_areas'];
 
             var relatedDashboardsElement = document.createElement("p");
-            relatedDashboardsElement.innerHTML = "<a href='#sub_reports_table'>Related Dashboards/Reports</a>";
-            relatedDashboardsElement.onclick = showRelatedReportsByDefinition;
+            if (definition['has_reports']) {
+                relatedDashboardsElement.innerHTML = "<a href='#sub_reports_table'>Related Dashboards/Reports</a>";
+                relatedDashboardsElement.onclick = showRelatedReportsByDefinition;
+            }
+            else {
+                relatedDashboardsElement.innerHTML = "No related Dashboards/Reports";
+            }
             relatedReports.appendChild(relatedDashboardsElement);
         }
     }
@@ -209,7 +214,7 @@
                     descriptionCell.innerHTML = report['description_val'];
                     functionalCell.innerHTML = report['functional_areas'];
                     //relatedReports.innerHTML = "<a href='#sub_reports_overlay'>Related Dashboards/Reports</a>";
-                    
+
                     var urlVal = report['attribute_value'];
                     if (null == urlVal || "null" == urlVal) {
                         urlCell.innerHTML = "No links found";
@@ -224,7 +229,7 @@
         ajax.send();
 
         // Put subReports table into an on-screen overlay
-        var subResultsContainer = document.createElement('div'); 
+        var subResultsContainer = document.createElement('div');
         var coverElement = document.createElement('div');
         var cancelElement = document.createElement('a');
         cancelElement.onclick = deleteOverlayResults;

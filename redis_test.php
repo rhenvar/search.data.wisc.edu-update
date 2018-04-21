@@ -6,7 +6,7 @@ Predis\Autoloader::register();
 
 try {
     $redis = new Predis\Client(array(
-        "host" => "10.128.127.156",
+        "host" => "localhost",
         "port" => 26379
     ));
 

@@ -1,6 +1,18 @@
 a {
     text-decoration: none;
-    color: #0479a8; 
+    color: #0479a8;
+}
+
+a:link {
+    color: #0479a8;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 #banner_link:hover {
@@ -29,6 +41,10 @@ body {
 #bar_container: {
     display: block;
     width: 90%;
+}
+
+#main_link {
+    color: white;
 }
 
 #cover {
@@ -96,7 +112,7 @@ h1:hover {
 
 h2 {
     color: #282728;
-    font-weight: lighter; 
+    font-weight: lighter;
 }
 
 h3 {
@@ -161,22 +177,9 @@ input {
     color: white;
     margin-top: 2%;
     margin-left: -1%;
-    background-color: #c5050c;	
+    background-color: #c5050c;
     border: none;
     box-shadow: 2px 2px 2px gray;
-}
-
-
-a:link {
-    color: #0479a8;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.visited {
-    color: purple;
 }
 
 #submit:hover {
@@ -202,7 +205,7 @@ td, th {
 }
 
 th {
-    background-color: #c5050c; 
+    background-color: #c5050c;
     color: #f9f9f9;
 }
 
@@ -230,7 +233,7 @@ tr:nth-child(odd) {
     margin: 0;
     margin-top: -7px;
     padding: 25px;
-    border-bottom: 1px solid #ccc; 
+    border-bottom: 1px solid #ccc;
     width: 100%;
 }
 
@@ -266,7 +269,7 @@ tr:nth-child(odd) {
     width: 100%;
 }
 
-.uw-global-name-link:active, .uw-global-name-link:hover, .uw-global-name-link:visited {
+.uw-global-name-link:active, .uw-global-name-link:hover {
     color: #fff;
     text-decoration: underline;
 }
@@ -275,5 +278,3 @@ tr:nth-child(odd) {
     color: #fff;
     text-decoration: none;
 }
-
-

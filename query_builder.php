@@ -11,7 +11,7 @@ class QueryBuilder {
         $this->functional_areas_table['all'] = '';
         $this->functional_areas_table['uwmadison'] = "University of Wisconsin - Madison";
         $this->functional_areas_table['cirriculuminstruction'] = "Curriculum & Instruction";
-        $this->functional_areas_table['facultystaff'] = "Faculty & Staff";	
+        $this->functional_areas_table['facultystaff'] = "Faculty & Staff";
         $this->functional_areas_table['finance'] = "Finance";
         $this->functional_areas_table['research'] = "Research";
         $this->functional_areas_table['students'] = "Students";
@@ -59,13 +59,13 @@ class QueryBuilder {
         }
 
         return "
-  SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM 
-        (SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words 
-            FROM specification_versions sv 
-                LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
+  SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM
+        (SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words
+            FROM specification_versions sv
+                LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id
 
-            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%' 
-        GROUP BY sv.specification_id ORDER BY ratio_words DESC ) 
+            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%'
+        GROUP BY sv.specification_id ORDER BY ratio_words DESC )
     AS Results ORDER BY $order_by DESC";
 
     }
@@ -95,7 +95,7 @@ class QueryBuilder {
 
             $functional_resolved = $this->functional_areas_table[$functional_area];
 
-            return "SELECT *, count_words / ratio_words AS ratio FROM 
+            return "SELECT *, count_words / ratio_words AS ratio FROM
                 (
                     SELECT DISTINCT definition_id, name, functional_definition, functional_areas , (" . join(" + ", $column_like_array) . ") AS count_words, LENGTH(name) + 1 - (LENGTH(REPLACE(name, ' ', ''))) AS ratio_words FROM definition_versions WHERE (" . join(" OR ", $column_like_array) . ") AND version_latest_approved = 1 AND name NOT LIKE 'IA%' AND functional_areas LIKE '%$functional_resolved%' ORDER BY count_words DESC
                 ) AS Results
@@ -109,7 +109,7 @@ class QueryBuilder {
     // Functional Areas
     // Related Dashboards/Reports
     function get_reports_by_definition($definition_id) {
-        return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_1_name, attribute_1_value, sva.attribute_5_value AS last_revised FROM specification_versions sv JOIN specification_related_definitions srd on srd.definition_id = $definition_id AND srd.specification_id = sv.specification_id LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%'
+        return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised FROM specification_versions sv JOIN specification_related_definitions srd on srd.definition_id = $definition_id AND srd.specification_id = sv.specification_id LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%'
         GROUP BY sv.specification_id";
     }
 

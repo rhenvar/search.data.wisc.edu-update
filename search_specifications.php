@@ -23,7 +23,7 @@ readfile('./header.html');
 </head>
 <body>
 <div class="uw-global-bar">
-    <a class="uw-global-name-link" href="http://www.wisc.edu">U<span>niversity <span class="uw-of">of</span> </span>W<span>isconsin</span>–Madison</a>
+    <a class="uw-global-name-link" href="http://www.wisc.edu" id="main_link">U<span>niversity <span class="uw-of">of</span> </span>W<span>isconsin</span>–Madison</a>
 </div>
 
 <div class="title_container">
@@ -55,7 +55,7 @@ readfile('./header.html');
         </select>
     </div>
     <div class="styled-select">
-        Sort By: 
+        Sort By:
         <select id="sort_by">
             <option value="relevance">Relevance</option>
             <option value="dates">Last Revised</option>

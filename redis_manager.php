@@ -17,8 +17,8 @@ if (isset($_GET['store_all_specifications'])) {
 
     try {
         $redis = new Predis\Client(array(
-            'host' => '10.128.127.156',
-            'port' => 26379 
+            'host' => 'localhost',
+            'port' => 26379
         ));
 
         $result = get_results('', 'dashboardsReports', 'relevance', '');
@@ -35,12 +35,33 @@ if (isset($_GET['store_all_specifications'])) {
     }
 }
 else if (isset($_GET['store_all_definitions'])) {
+    header("Content-type: application/json");
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
 
+        $result = get_results('', 'dataDefinitions', 'relevance', '');
+        usort($result, "cmp_definitions");
+        $redis->set('all_definitions', json_encode($result));
+        print json_encode('Redis definitions stored?: ' . $redis->exists('all_definitions'));
+        print json_encode('Number of definitions stored: ' . count($result));
+        print json_encode($redis->get('all_definitions'));
+
+    }
+    catch (Exception $e) {
+        print json_encode($e->getMessage());
+    }
 }
+
 // TODO: Related dashboards by definition
 
-function cmp($a, $b)
-{
+function cmp($a, $b) {
     return strcmp($a->specification_name, $b->specification_name);
+}
+
+function cmp_definitions($a, $b) {
+    return strcmp($a->definition_name, $b->definition_name);
 }
 ?>
