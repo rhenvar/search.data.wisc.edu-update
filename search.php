@@ -7,6 +7,7 @@ $search_input = '';
 $sort_by = 'relevance';
 $type = 'dashboardsReports';
 $functional_area = 'all';
+$page = 1;
 
 if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {
     $subsearch_type = $_GET['subsearch_type'];
@@ -16,8 +17,6 @@ if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {
 
         header("Content-type: application/json");
         print(json_encode($result));
-    }
-    else if (0 == strcmp("reports_by_report", $subsearch_type)) {
     }
 }
 
@@ -34,20 +33,27 @@ else {
     if (isset($_GET['functional_area'])) {
         $functional_area = $_GET['functional_area'];
     }
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    }
 
     if (strcmp($type, "dashboardsReports") == 0 && specifications_set()) {
         $result = get_redis_specifications($search_input, $sort_by, $functional_area);
+        $result = array_slice($result, 25 * ($page - 1), 25);
         header("Content-type: application/json");
         print(json_encode($result));
-
     }
+
     else if (strcmp($type, "dataDefinitions") == 0 && definitions_set()) {
         $result = get_redis_definitions($search_input, $sort_by, $functional_area);
+        header("Length: " . count($result));
+        header("Page: " . $page);
+        $result = array_slice($result, 25 * ($page - 1), 25);
         header("Content-type: application/json");
         print(json_encode($result));
     }
     else {
-        $result = get_results($search_input, $type, $sort_by, $functional_area);
+        $result = array();//get_results($search_input, $type, $sort_by, $functional_area);
         header("Content-type: application/json");
         print(json_encode($result));
     }

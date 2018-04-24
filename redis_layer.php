@@ -2,6 +2,7 @@
 
 include_once 'specification.php';
 include_once 'data_definition.php';
+include_once 'relation.php';
 include_once 'query_builder.php';
 include_once 'datalayer.php';
 
@@ -149,6 +150,10 @@ function get_redis_definitions() {
     }
 }
 
+function get_redis_relations($definition_id) {
+    
+}
+
 function cmp_ratio($a, $b) {
     $a_ratio = $a->ratio;
     $b_ratio = $b->ratio;
@@ -195,6 +200,19 @@ function definitions_set() {
             'port' => 26379
          ));
          return $redis->exists('all_definitions');
+    }
+    catch (Exception $e) {
+        return false;
+    }
+}
+
+function relations_set() {
+    try {
+         $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+         ));
+         return $redis->exists('all_relations');
     }
     catch (Exception $e) {
         return false;

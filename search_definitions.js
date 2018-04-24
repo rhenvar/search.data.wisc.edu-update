@@ -41,6 +41,7 @@
         document.getElementsByClassName("result_container")[0].style.display = "none";
         document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Functional Areas</th><th>URL</th><th>Last Revised</th></tr>";
         document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
+        document.getElementById('pages_table').innerHTML = "";
 
 
         var searchInput = document.getElementById("search_input").value;
@@ -135,7 +136,9 @@
             return;
         }
         else {
-            document.getElementById("results_title").innerHTML = "Results (" + definitionsJson.length + ")";
+            document.getElementById("results_title").innerHTML = "Results (" + response.getResponseHeader("length") + ")" + ", displaying 25 per page";
+            var currentPage = response.getResponseHeader("page");
+            populatePageTable(response.getResponseHeader("length"), currentPage);
         }
 
         for (var i = 0; i < definitionsJson.length; i++) {
@@ -163,6 +166,23 @@
                 relatedDashboardsElement.innerHTML = "No related Dashboards/Reports";
             }
             relatedReports.appendChild(relatedDashboardsElement);
+        }
+    }
+
+    function populatePageTable(count, currPage) {
+        var pages = count <= 25 ? 1 : count / 25 + 1;
+        var pageTable = document.getElementById("pages_table");
+        var pageRow = pageTable.insertRow();
+
+        for (var i = 1; i <= pages; i++) {
+            var numberCell = pageRow.insertCell();
+            numberCell.innerHTML = " " + i;
+            if (currPage == i) {
+                numberCell.id = "selected_page";
+            }
+            else {
+                numberCell.classList.add("unselected_page");
+            }
         }
     }
 

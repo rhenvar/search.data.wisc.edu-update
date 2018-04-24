@@ -81,6 +81,9 @@ readfile('./header.html');
             <th>Related Dashboards/Reports</th>
         </tr>
     </table>
+
+    <table id="pages_table">
+    </table>
 </div>
 <img id="loading" src="https://search.data.wisc.edu/loading.gif">
 

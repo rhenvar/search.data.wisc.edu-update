@@ -187,6 +187,22 @@ input {
     cursor: pointer;
 }
 
+#pages_table {
+    width: auto !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#selected_page {
+    background-color: #9b0000;
+    color: white;
+}
+
+.unselected_page:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 table {
     border-collapse: collapse;
     box-shadow: 2px 2px 2px gray;
