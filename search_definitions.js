@@ -156,7 +156,8 @@
             idCell.innerHTML = definition['definition_id'];
             nameCell.innerHTML = definition['definition_name'];
             definitionCell.innerHTML = definition['functional_definition'];
-            functionalAreasCell.innerHTML = definition['functional_areas'];
+            functionalAreasCell.innerHTML = definition['functional_areas'].replace(",", ", ");
+            functionalAreasCell.classList.add("functional_area")
 
             var relatedDashboardsElement = document.createElement("p");
             if (definition['has_reports']) {

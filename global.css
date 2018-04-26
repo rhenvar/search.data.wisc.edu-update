@@ -103,7 +103,6 @@ body {
 h1 {
     color: #9b0000;
     font-weight: bold;
-    height: 20px;
 }
 
 h1:hover {
@@ -113,6 +112,7 @@ h1:hover {
 h2 {
     color: #282728;
     font-weight: lighter;
+    margin-top: -20px;
 }
 
 h3 {
@@ -212,10 +212,11 @@ table {
 
 tbody {
     display: table;
+    width: 100%;
 }
 
 .functional_area {
-    width: 120px;
+    width: 180px;
 }
 
 td, th {
@@ -245,6 +246,8 @@ tr:nth-child(odd) {
 
 .result_container {
     text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .title_container {

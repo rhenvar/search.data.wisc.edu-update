@@ -14,11 +14,10 @@
             search();
         }
 
-        document.getElementById('submit').onclick = search;
-        document.getElementById('sort_by').onchange = search;
-        document.getElementById('functional_area').onchange = search;
+        document.getElementById('submit').onclick = function() { search() };
+        document.getElementById('sort_by').onchange = function() { search() };
+        document.getElementById('functional_area').onchange = function() { search() };
         document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
-
 
         $('#search_input').keyup(function(event) {
             if (event.keyCode === 13) {
@@ -37,13 +36,15 @@
      * - Type
      * - Functional Area
      */
-    function search() {
-        //var searchType = "all";
+    function search(page) {
+        page = (typeof page !== 'undefined') ? page : 1;
+
         document.getElementById('loading').style.display = "block";
         document.getElementsByClassName('result_container')[0].style.display = "none";
         document.getElementById('dashboards_reports_table').style.display = "none";
         document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Functional Areas</th><th>URL</th><th>Last Revised</th></tr>";
         document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
+        document.getElementById('pages_table').innerHTML = "";
 
 
         var searchInput = document.getElementById("search_input").value;
@@ -88,7 +89,9 @@
             return;
         }
         else {
-            document.getElementById("results_title").innerHTML = "Results (" + reportsJson.length + ")";
+            document.getElementById("results_title").innerHTML = "Results (" + response.getResponseHeader("length") + ")" + ", displaying 25 per page";
+            var currentPage = response.getResponseHeader("page");
+            populatePageTable(response.getResponseHeader("length"), currentPage);
         }
 
         for (var i = 0; i < reportsJson.length; i++) {
@@ -109,6 +112,8 @@
             typeCell.innerHTML = report['specification_type'];
             descriptionCell.innerHTML = report['description_val'];
             functionalCell.innerHTML = report['functional_areas'];
+            functionalCell.innerHTML = report['functional_areas'].replace(",", ", ");
+            functionalCell.classList.add("functional_area");
 
             var urlVal = report['attribute_4_value'];
             if (null == urlVal || "null" == urlVal) {
@@ -126,6 +131,29 @@
                 dateCell.innerHTML = report['last_revised'];
             }
         }
+    }
+
+    function populatePageTable(count, currPage) {
+        var pages = count <= 25 ? 1 : count / 25 + 1;
+        var pageTable = document.getElementById("pages_table");
+        var pageRow = pageTable.insertRow();
+
+        for (var i = 1; i <= pages; i++) {
+            var numberCell = pageRow.insertCell();
+            numberCell.innerHTML = i;
+            if (currPage == i) {
+                numberCell.id = "selected_page";
+            }
+            else {
+                numberCell.classList.add("unselected_page");
+                numberCell.onclick = changePage;
+            }
+        }
+    }
+
+    function changePage() {
+        var page = this.innerHTML;
+        search(page);
     }
 
     function showDefinitions(response) {

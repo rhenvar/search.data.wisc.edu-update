@@ -39,6 +39,8 @@ else {
 
     if (strcmp($type, "dashboardsReports") == 0 && specifications_set()) {
         $result = get_redis_specifications($search_input, $sort_by, $functional_area);
+        header("Length: " . count($result));
+        header("Page: " . $page);
         $result = array_slice($result, 25 * ($page - 1), 25);
         header("Content-type: application/json");
         print(json_encode($result));
