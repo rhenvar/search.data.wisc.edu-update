@@ -14,8 +14,8 @@
             search();
         }
 
-        document.getElementById('submit').onclick = search;
-        document.getElementById('functional_area').onchange = search;
+        document.getElementById('submit').onclick = function() { search() };
+        document.getElementById('functional_area').onchange = function() { search() };
         document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
 
         $('#search_input').keyup(function(event) {
@@ -35,8 +35,9 @@
      * - Type
      * - Functional Area
      */
-    function search() {
-        //var searchType = "all";
+    function search(page) {
+        page = (typeof page !== 'undefined') ? page : 1;
+
         document.getElementById("loading").style.display = "block";
         document.getElementsByClassName("result_container")[0].style.display = "none";
         document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Functional Areas</th><th>URL</th><th>Last Revised</th></tr>";
@@ -56,7 +57,7 @@
         var functionalElement = document.getElementById('functional_area');
         var functionalArea = functionalElement.options[functionalElement.selectedIndex].value;
 
-        var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea;
+        var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea + "&page=" + page;
 
         ajax.open("GET", url, true);
         ajax.onload = processResponse;
@@ -176,14 +177,20 @@
 
         for (var i = 1; i <= pages; i++) {
             var numberCell = pageRow.insertCell();
-            numberCell.innerHTML = " " + i;
+            numberCell.innerHTML = i;
             if (currPage == i) {
                 numberCell.id = "selected_page";
             }
             else {
                 numberCell.classList.add("unselected_page");
+                numberCell.onclick = changePage;
             }
         }
+    }
+
+    function changePage() {
+        var page = this.innerHTML;
+        search(page);
     }
 
     // Gray out background and show screen overlay of related reports

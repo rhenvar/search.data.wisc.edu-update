@@ -210,6 +210,10 @@ table {
     width: 100%;
 }
 
+tbody {
+    display: table;
+}
+
 .functional_area {
     width: 120px;
 }

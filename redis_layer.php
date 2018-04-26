@@ -86,7 +86,7 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
     }
 }
 
-function get_redis_definitions() {
+function get_redis_definitions($search_input, $sort_By, $functional_area) {
     $functional_areas_table = [
         "all" => "",
         "uwmadison" => "University of Wisconsin - Madison",
@@ -118,7 +118,7 @@ function get_redis_definitions() {
             }
             return $filtered_array;
         }
-        else if (strcmp('', $search_input) != 0 && strcmp('relevance', $sort_by) == 0) {
+        else {
             $filtered_array = array();
 
             $input_array = explode(' ', $search_input);
@@ -151,7 +151,7 @@ function get_redis_definitions() {
 }
 
 function get_redis_relations($definition_id) {
-    
+
 }
 
 function cmp_ratio($a, $b) {
