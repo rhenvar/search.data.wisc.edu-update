@@ -161,7 +161,7 @@
 
             var relatedDashboardsElement = document.createElement("p");
             if (definition['has_reports']) {
-                relatedDashboardsElement.innerHTML = "<a href='#sub_reports_table'>Related Dashboards/Reports</a>";
+                relatedDashboardsElement.innerHTML = "<a href='#sub_reports_table_" + definition['definition_id'] +"'>Related Dashboards/Reports</a>";
                 relatedDashboardsElement.onclick = showRelatedReportsByDefinition;
             }
             else {
@@ -196,7 +196,7 @@
 
     // Gray out background and show screen overlay of related reports
     function showRelatedReportsByDefinition() {
-        this.childNodes[0].classList.add("visited");
+        //this.childNodes[0].classList.add("visited");
         var definitionId = this.parentElement.parentElement.firstChild.innerHTML;
         // need an overlay container for subReportsTable
         var subReportsTable = document.createElement("table");
