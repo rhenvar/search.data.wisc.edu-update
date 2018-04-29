@@ -87,5 +87,8 @@ readfile('./header.html');
 </div>
 <img id="loading" src="https://search.data.wisc.edu/loading.gif">
 
+<div class="uw-global-footer">
+  <p>&copy; 2018 Board of Regents of the University of Wisconsin System</p>
+</div>
 </body>
 </html>

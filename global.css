@@ -90,14 +90,18 @@ body {
     position: absolute;
     top: 3px;
     right: 2px;
-    background: rgb(245,245,245);
     color: black;
-    height: 30px;
-    width: 35px;
+    height: 15px;
+    width: 15px;
     font-size: 30px;
     text-decoration: none;
     text-align: center;
     font-weight: bold;
+    margin-top: -13px;
+}
+
+.cancel:hover {
+    cursor: pointer;
 }
 
 h1 {
@@ -275,7 +279,7 @@ tr:nth-child(odd) {
     width: 100%;
 }
 
-.uw-global-bar {
+.uw-global-bar, .uw-global-footer {
     background-color: #c5050c;
     color: #fff;
     padding: 0 1rem;
@@ -290,6 +294,17 @@ tr:nth-child(odd) {
     font-weight: 700;
     padding: 12px;
     width: 100%;
+}
+
+.uw-global-footer {
+    background-color: #282728;
+    border-top: 5px solid #c5050c;
+    text-align: center;
+}
+
+.uw-global-footer p {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .uw-global-name-link:active, .uw-global-name-link:hover {
