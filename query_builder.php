@@ -109,7 +109,7 @@ class QueryBuilder {
     // Functional Areas
     // Related Dashboards/Reports
     function get_reports_by_definition($definition_id) {
-        return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised FROM specification_versions sv JOIN specification_related_definitions srd on srd.definition_id = $definition_id AND srd.specification_id = sv.specification_id LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%' GROUP BY sv.specification_id";
+        return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised FROM specification_versions sv JOIN specification_related_definitions srd on srd.definition_id = $definition_id AND srd.specification_id = sv.specification_id LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%' GROUP BY sv.specification_id ORDER BY sv.specification_name ASC";
     }
 
     function get_all_relations() {
