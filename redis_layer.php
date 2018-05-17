@@ -121,9 +121,11 @@ function get_redis_definitions($search_input, $sort_By, $functional_area) {
         else {
             $filtered_array = array();
 
-            $input_array = explode(' ', $search_input);
+            //$input_array = explode(' ', $search_input);
+            $input_array = preg_split("/[\s,\\/]+/", $search_input);
             foreach ($results as $result) {
-                $definition_array = explode(' ', $result->definition_name);
+                //$definition_array = explode(' ', $result->definition_name);
+                $definition_array = preg_split("/[\s,\\/]+/", $result->definition_name);
                 $definition_word_count = count($definition_array);
                 $word_occurrences = 0;
 
