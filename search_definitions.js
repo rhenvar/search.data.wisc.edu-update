@@ -241,12 +241,16 @@
                     }
                 }
                 subResultsContainer.appendChild(subReportsTable);
+                //subResultsContainer.style.display = "block";
+                $('#sub_reports_overlay').fadeIn();
+                
             }
         };
         ajax.send();
 
         // Put subReports table into an on-screen overlay
         var subResultsContainer = document.createElement('div');
+        subResultsContainer.style.display = "none";
         var coverElement = document.createElement('div');
         var cancelElement = document.createElement('a');
         cancelElement.onclick = deleteOverlayResults;
@@ -257,6 +261,7 @@
         subResultsContainer.setAttribute('id', 'sub_reports_overlay');
         subResultsContainer.appendChild(cancelElement);
 
+        subResultsContainer.style.display = "none";
         document.body.appendChild(coverElement);
         document.body.appendChild(subResultsContainer);
     }
