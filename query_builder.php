@@ -116,6 +116,15 @@ class QueryBuilder {
         return "SELECT specification_id, definition_id FROM specification_related_definitions WHERE specification_name NOT LIKE 'IA%' AND definition_name NOT LIKE 'IA%' GROUP BY specification_id";
     }
 
+    // Select functional areas with existing entries
+    function get_specification_functional_areas() {
+        return "SELECT DISTINCT sv.functional_areas FROM specification_versions sv WHERE sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas IS NOT NULL";
+    }
+
+    function get_definition_functional_areas() {
+        return "SELECT DISTINCT d.functional_areas FROM definition_versions v WHERE v.definition_name NOT LIKE 'IA%' AND d.functional_areas IS NOT NULL";
+    }
+
     function sort($a, $b) {
         return strlen($a) - strlen($b);
     }

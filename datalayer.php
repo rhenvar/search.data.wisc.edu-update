@@ -134,4 +134,30 @@ function get_all_relations() {
         return $e->getMessage();
     }
 }
+
+function get_specification_functional_areas() {
+    try {
+        $qb = new QueryBuilder("", "dashboardsReports", "relevance", "");
+        $link = new PDO('mysql:host=reporting.datacookbook.com', 'uwmadison', '7d1&c9*bsF7A');
+        $link->exec('USE itdb_production');
+
+        $stmt = $link->query($qb->get_specification_functional_areas(), PDO::FETCH_ASSOC);
+
+        if ($stmt) {
+            $stmt_array = array();
+
+            foreach ($stmt as $database_result) {
+                $json_object = json_decode(json_encode($database_result));
+                array_push($stmt_array, $json_object->{'functional_areas'});
+            }
+            return $stmt_array;
+        }
+        else {
+            return $link->errorInfo();
+        }
+    }
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
 ?>
