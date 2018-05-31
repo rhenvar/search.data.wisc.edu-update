@@ -156,7 +156,7 @@ function get_redis_relations($definition_id) {
 
 }
 
-function get_redis_functional_areas() {
+function get_redis_specification_functional_areas() {
     try {
         $redis = new Predis\Client(array(
             'host' => 'localhost',

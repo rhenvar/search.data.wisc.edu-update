@@ -9,6 +9,13 @@ $type = 'dashboardsReports';
 $functional_area = 'all';
 $page = 1;
 
+if (isset($_GET['get_specification_functional_areas'])) {
+    $specification_functional_areas = get_redis_specification_functional_areas(); 
+
+    header("Content-type: application/json");
+    print(json_encode($specification_functional_areas));
+}
+
 if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {
     $subsearch_type = $_GET['subsearch_type'];
     if (0 == strcmp("reports_by_definition", $subsearch_type)) {
