@@ -7,6 +7,7 @@
 
     function setup() {
         populateFunctionalAreas();
+        populateSpecificationTypes();
 
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -19,6 +20,7 @@
         document.getElementById('submit').onclick = function() { search() };
         document.getElementById('sort_by').onchange = function() { search() };
         document.getElementById('functional_area').onchange = function() { search() };
+        document.getElementById('specification_type').onchange = function() { search() };
         document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
 
         $('#search_input').keyup(function(event) {
@@ -61,7 +63,10 @@
         var functionalElement = document.getElementById('functional_area');
         var functionalArea = functionalElement.options[functionalElement.selectedIndex].value;
 
-        var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea + "&page=" + page;
+        var typeElement = document.getElementById('specification_type');
+        var typeVal = typeElement.options[typeElement.selectedIndex].value;
+
+        var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea + "&specification_type=" + typeVal + "&page=" + page;
 
         ajax.open("GET", url, true);
         ajax.onload = processResponse;
@@ -311,6 +316,22 @@
         for (var i = 0; i < areas.length; i++) {
             //TODO: figure out values vs. names for option elements
             functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
+        }
+    }
+
+    function populateSpecificationTypes() {
+        var ajax = new XMLHttpRequest();
+        var url = "search.php?get_specification_types=true"; 
+        ajax.open("GET", url, true);
+        ajax.onload = processSpecificationTypes;
+        ajax.send();
+    }
+
+    function processSpecificationTypes() {
+        var specificationTypes = document.getElementById("specification_type");
+        var areas = JSON.parse(this.responseText);
+        for (var i = 0; i < areas.length; i++) {
+            specificationTypes.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
         }
     }
 })();

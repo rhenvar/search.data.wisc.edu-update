@@ -7,6 +7,7 @@ $search_input = '';
 $sort_by = 'relevance';
 $type = 'dashboardsReports';
 $functional_area = 'all';
+$specification_type = 'all';
 $page = 1;
 
 if (isset($_GET['get_specification_functional_areas'])) {
@@ -21,6 +22,12 @@ else if (isset($_GET['get_definition_functional_areas'])) {
 
     header("Content-type: application/json");
     print(json_encode($definition_functional_areas));
+}
+else if (isset($_GET['get_specification_types'])) {
+    $specification_types = get_redis_specification_types();
+
+    header("Content-type: application/json");
+    print(json_encode($specification_types));
 }
 
 else {
@@ -47,12 +54,15 @@ else {
         if (isset($_GET['functional_area'])) {
             $functional_area = $_GET['functional_area'];
         }
+        if (isset($_GET['specification_type'])) {
+            $specification_type = $_GET['specification_type'];
+        }
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
         }
 
         if (strcmp($type, "dashboardsReports") == 0 && specifications_set()) {
-            $result = get_redis_specifications($search_input, $sort_by, $functional_area);
+            $result = get_redis_specifications($search_input, $sort_by, $functional_area, $specification_type);
             header("Length: " . count($result));
             header("Page: " . $page);
             $result = array_slice($result, 25 * ($page - 1), 25);

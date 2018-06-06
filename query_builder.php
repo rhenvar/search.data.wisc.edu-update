@@ -126,6 +126,10 @@ class QueryBuilder {
         return "SELECT DISTINCT v.functional_areas FROM definition_versions v WHERE v.name NOT LIKE 'IA%' AND v.functional_areas IS NOT NULL";
     }
 
+    function get_specification_types() {
+        return "SELECT DISTINCT sv.specification_type FROM specification_versions sv WHERE sv.specification_name NOT LIKE 'IA%' AND sv.specification_type IS NOT NULL";
+    }
+
     function sort($a, $b) {
         return strlen($a) - strlen($b);
     }

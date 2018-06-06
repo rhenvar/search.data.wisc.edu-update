@@ -10,7 +10,7 @@ require "predis/autoload.php";
 Predis\Autoloader::register();
 
 
-function get_redis_specifications($search_input, $sort_by, $functional_area) {
+function get_redis_specifications($search_input, $sort_by, $functional_area, $specification_type) {
     $functional_areas_table = [
         "all" => "",
         "uwmadison" => "University of Wisconsin - Madison",
@@ -36,7 +36,7 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
         if (strcmp('', $search_input) == 0 && strcmp('relevance', $sort_by) == 0) {
             $filtered_array = array();
             foreach ($results as $result) {
-                if (contains_area($result->functional_areas, $functional_area)) {
+                if (contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type)) {
                     array_push($filtered_array, $result);
                 }
             }
@@ -46,7 +46,7 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
             if (strcmp('dates', $sort_by) == 0) {
                 $filtered_array = array();
                 foreach ($results as $result) {
-                    if (contains_area($result->functional_areas, $functional_area)) {
+                    if (contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type)) {
                         array_push($filtered_array, $result);
                     }
                 }
@@ -70,7 +70,7 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
                             }
                         }
                     }
-                    if ($word_occurrences > 0 && contains_area($result->functional_areas, $functional_area)) {
+                    if ($word_occurrences > 0 && contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type)) {
                         $ratio = $word_occurrences / (float) $specification_word_count;
                         $result->ratio = $ratio;
                         array_push($filtered_array, $result);
@@ -183,6 +183,23 @@ function get_redis_definition_functional_areas() {
         }
 
         $results = json_decode($redis->get('all_definition_functional_areas'));
+        return $results;
+    }
+    catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
+function get_redis_specification_types() {
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        if (!$redis->exists('all_specification_types')) {
+        }
+
+        $results = json_decode($redis->get('all_specification_types'));
         return $results;
     }
     catch (Exception $e) {

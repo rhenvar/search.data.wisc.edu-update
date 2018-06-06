@@ -49,6 +49,12 @@ readfile('./header.html');
         </select>
     </div>
     <div class="styled-select">
+        Specification Type:
+        <select id="specification_type">
+            <option value="all">All</option>
+        </select>
+    </div>
+    <div class="styled-select">
         Sort By:
         <select id="sort_by">
             <option value="relevance">Relevance</option>

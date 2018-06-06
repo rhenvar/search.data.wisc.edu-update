@@ -12,5 +12,6 @@ readfile('./header.html');
 <input type="submit" id="store_relations" value="Store All Relations">
 <input type="submit" id="store_specification_functional_areas" value="Store Specification Functional Areas">
 <input type="submit" id="store_definition_functional_areas" value="Store Definition Functional Areas">
+<input type="submit" id="store_specification_types" value="Store Specification Types">
 </body>
 </html>

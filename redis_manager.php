@@ -130,6 +130,23 @@ else if (isset($_GET['store_all_definition_functional_areas'])) {
     }
 }
 
+else if (isset($_GET['store_all_specification_types'])) {
+    header("Content-type: application/json");
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        $results = get_specification_types();
+
+        $redis->set('all_specification_types', json_encode($results));
+        print(json_encode($results));
+    }
+    catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
 function cmp($a, $b) {
     return strcmp($a->specification_name, $b->specification_name);
 }

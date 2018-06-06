@@ -220,7 +220,7 @@ tbody {
     width: 100%;
 }
 
-#functional_area {
+#functional_area, #specification_type {
     width: 180px;
 }
 

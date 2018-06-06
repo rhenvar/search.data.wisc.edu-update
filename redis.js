@@ -11,6 +11,7 @@
         document.getElementById("store_relations").onclick = storeRelations;
         document.getElementById("store_specification_functional_areas").onclick = storeSpecificationFunctionalAreas;
         document.getElementById("store_definition_functional_areas").onclick = storeDefinitionFunctionalAreas;
+        document.getElementById("store_specification_types").onclick = storeSpecificationTypes;
     }
 
     function storeSpecifications() {
@@ -55,6 +56,15 @@
     function storeDefinitionFunctionalAreas() {
         var ajax = new XMLHttpRequest();
         var url = "redis_manager.php?store_all_definition_functional_areas=true";
+
+        ajax.open("GET", url, true);
+        ajax.onload = processStoreSpecificationsResponse;
+        ajax.send();
+    }
+
+    function storeSpecificationTypes() {
+        var ajax = new XMLHttpRequest();
+        var url = "redis_manager.php?store_all_specification_types=true";
 
         ajax.open("GET", url, true);
         ajax.onload = processStoreSpecificationsResponse;
