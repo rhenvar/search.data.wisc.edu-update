@@ -44,7 +44,7 @@
         document.getElementById('loading').style.display = "block";
         document.getElementsByClassName('result_container')[0].style.display = "none";
         document.getElementById('dashboards_reports_table').style.display = "none";
-        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Functional Areas</th><th>URL</th></tr>";
+        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domains</th><th>URL</th></tr>";
         document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
         document.getElementById('pages_table').innerHTML = "";
 
@@ -285,7 +285,7 @@
 
         document.getElementById('dashboards_reports_table').style.display = 'none';
         document.getElementById('data_definitions_table').style.display = 'none';
-        document.getElementById('results_title').innerHTML = "Sorry, no Specifications found for term '" + input + "' under functional area '" + functionalArea + "'";
+        document.getElementById('results_title').innerHTML = "Sorry, no Specifications found for term '" + input + "' under Data Domain '" + functionalArea + "'";
         document.getElementsByClassName("result_container")[0].style.display = "block";
 
     }

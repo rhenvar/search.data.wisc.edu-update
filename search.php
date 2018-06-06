@@ -24,7 +24,6 @@ else if (isset($_GET['get_definition_functional_areas'])) {
 }
 
 else {
-
     if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {
         $subsearch_type = $_GET['subsearch_type'];
         if (0 == strcmp("reports_by_definition", $subsearch_type)) {
@@ -35,7 +34,6 @@ else {
             print(json_encode($result));
         }
     }
-
     else {
         if (isset($_GET['search_input'])) {
             $search_input = $_GET['search_input'];
@@ -61,7 +59,6 @@ else {
             header("Content-type: application/json");
             print(json_encode($result));
         }
-
         else if (strcmp($type, "dataDefinitions") == 0 && definitions_set()) {
             $result = get_redis_definitions($search_input, $sort_by, $functional_area);
             header("Length: " . count($result));
@@ -71,7 +68,7 @@ else {
             print(json_encode($result));
         }
         else {
-            $result = array();//get_results($search_input, $type, $sort_by, $functional_area);
+            $result = array(); //get_results($search_input, $type, $sort_by, $functional_area);
             header("Content-type: application/json");
             print(json_encode($result));
         }

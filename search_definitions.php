@@ -42,7 +42,7 @@ readfile('./header.html');
     <br/>
     <br/>
     <div class="styled-select">
-        Functional Area:
+        Data Domains:
         <select id="functional_area">
             <option value="all">All</option>
         </select>
@@ -60,7 +60,7 @@ readfile('./header.html');
             <th>Name</th>
             <th>Type</th>
             <th>Description</th>
-            <th>Functional Areas</th>
+            <th>Data Domains</th>
             <th>Related Dashboards/Reports</th>
         </tr>
     </table>
@@ -70,7 +70,7 @@ readfile('./header.html');
             <th>Name</th>
             <th>Type</th>
             <th>Functional Definition</th>
-            <th>Functional Areas</th>
+            <th>Data Domains</th>
             <th>Related Definitions</th>
             <th>Related Dashboards/Reports</th>
         </tr>
