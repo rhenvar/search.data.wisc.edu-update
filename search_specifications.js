@@ -310,6 +310,7 @@
         var areas = JSON.parse(this.responseText);
         for (var i = 0; i < areas.length; i++) {
             //TODO: figure out values vs. names for option elements
+            functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
         }
     }
 })();

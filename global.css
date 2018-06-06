@@ -220,9 +220,10 @@ tbody {
     width: 100%;
 }
 
-.functional_area {
+#functional_area {
     width: 180px;
 }
+
 
 td, th {
     border: 1px solid #dddddd;

@@ -46,12 +46,6 @@ readfile('./header.html');
         Functional Area:
         <select id="functional_area">
             <option value="all">All</option>
-            <option value="uwmadison">University of Wisconsin - Madison</option>
-            <option value="cirriculuminstruction">Cirriculum &amp; Instruction</option>
-            <option value="facultystaff">Faculty &amp; Staff</option>
-            <option value="finance">Finance</option>
-            <option value="research">Research</option>
-            <option value="students">Students</option>
         </select>
     </div>
     <div class="styled-select">

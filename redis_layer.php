@@ -36,7 +36,8 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
         if (strcmp('', $search_input) == 0 && strcmp('relevance', $sort_by) == 0) {
             $filtered_array = array();
             foreach ($results as $result) {
-                if (contains_area($result->functional_areas, $functional_areas_table[$functional_area])) {
+                //if (contains_area($result->functional_areas, $functional_areas_table[$functional_area])) {
+                if (contains_area($result->functional_areas, $functional_area)) {
                     array_push($filtered_array, $result);
                 }
             }
@@ -56,6 +57,8 @@ function get_redis_specifications($search_input, $sort_by, $functional_area) {
             if (strcmp('', $search_input) != 0 && strcmp('relevance', $sort_by) == 0) {
                 $filtered_array = array();
 
+                // Finished my nightly debt for the [damn] 'Man' 
+        
                 $input_array = explode(' ', $search_input);
                 foreach ($results as $result) {
                     $specification_array = explode(' ', $result->specification_name);
@@ -189,7 +192,7 @@ function cmp_date($a, $b) {
 }
 
 function contains_area($functional_areas, $area) {
-    if (strcmp("", $area) == 0) {
+    if (strcmp("all", $area) == 0) {
         return true;
     }
     $pos = strpos($functional_areas, $area);

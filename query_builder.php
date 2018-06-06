@@ -48,7 +48,8 @@ class QueryBuilder {
             array_push($column_like_array, " (sv.specification_name LIKE '%$input_word%') ");
         }
 
-        $functional_resolved = $this->functional_areas_table[$functional_area];
+        //$functional_resolved = $this->functional_areas_table[$functional_area];
+        $fuctional_resolved = $functional_area;
 
         $order_by = "";
         if (strcmp($sort_by, "relevance") == 0) {
