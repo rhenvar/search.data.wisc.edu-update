@@ -16,6 +16,13 @@ if (isset($_GET['get_specification_functional_areas'])) {
     print(json_encode($specification_functional_areas));
 }
 
+else if (isset($_GET['get_definition_functional_areas'])) {
+    $definition_functional_areas = get_redis_definition_functional_areas();
+
+    header("Content-type: application/json");
+    print(json_encode($definition_functional_areas));
+}
+
 else {
 
     if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {

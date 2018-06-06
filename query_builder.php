@@ -123,7 +123,7 @@ class QueryBuilder {
     }
 
     function get_definition_functional_areas() {
-        return "SELECT DISTINCT d.functional_areas FROM definition_versions v WHERE v.definition_name NOT LIKE 'IA%' AND d.functional_areas IS NOT NULL";
+        return "SELECT DISTINCT v.functional_areas FROM definition_versions v WHERE v.name NOT LIKE 'IA%' AND v.functional_areas IS NOT NULL";
     }
 
     function sort($a, $b) {

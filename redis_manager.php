@@ -103,6 +103,33 @@ else if (isset($_GET['store_all_specification_functional_areas'])) {
     }
 }
 
+// NOTE: definition functional areas are not stored with spaces after commas
+else if (isset($_GET['store_all_definition_functional_areas'])) {
+    header("Content-type: application/json");
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        $results = get_definition_functional_areas();
+        $functional_areas_set = array();
+
+        foreach ($results as $result) {
+            $areas = explode(",", $result);
+            foreach ($areas as $area) {
+                $functional_areas_set[$area] = 0;
+            }
+        }
+        $keys = array_keys($functional_areas_set);
+
+        $redis->set('all_definition_functional_areas', json_encode($keys));
+        print(json_encode($keys));
+    }
+    catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
 function cmp($a, $b) {
     return strcmp($a->specification_name, $b->specification_name);
 }

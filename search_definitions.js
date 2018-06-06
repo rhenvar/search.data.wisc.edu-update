@@ -6,6 +6,8 @@
     }
 
     function setup() {
+        populateFunctionalAreas();
+
         var url_string = window.location.href;
         var url = new URL(url_string);
         var input = url.searchParams.get("search_input");
@@ -290,5 +292,22 @@
         var cover = document.getElementById("cover");
         subResultsContainer.parentNode.removeChild(subResultsContainer);
         cover.parentNode.removeChild(cover);
+    }
+
+    function populateFunctionalAreas() {
+        var ajax = new XMLHttpRequest();
+        var url = "search.php?get_definition_functional_areas=true"; 
+        ajax.open("GET", url, true);
+        ajax.onload = processFunctionalAreas;
+        ajax.send();
+    }
+
+    function processFunctionalAreas() {
+        var functionalAreas = document.getElementById("functional_area");
+        var areas = JSON.parse(this.responseText);
+        for (var i = 0; i < areas.length; i++) {
+            //TODO: figure out values vs. names for option elements
+            functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
+        }
     }
 })();
