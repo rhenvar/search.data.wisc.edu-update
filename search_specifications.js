@@ -46,7 +46,7 @@
         document.getElementById('loading').style.display = "block";
         document.getElementsByClassName('result_container')[0].style.display = "none";
         document.getElementById('dashboards_reports_table').style.display = "none";
-        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domains</th><th>Request Access</th></tr>";
+        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domains</th><th>Request URL</th></tr>";
         document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
         document.getElementById('pages_table').innerHTML = "";
 
@@ -124,11 +124,13 @@
                     img.src= "/lock.png";
                     img.className = "lock";
                     nameCell.appendChild(img);
+                    urlCell.innerHTML = report['attribute_8_value'];
                 }
                 nameCell.innerHTML += report['specification_name'];
             }
             else {
                 nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
+                urlCell.innerHTML = "Not Applicable";
             }
 
 

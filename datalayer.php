@@ -36,7 +36,9 @@ function get_results_by_relevance($search_input, $type, $sort_by, $functional_ar
                         $json_object->{'last_revised'},
                         0, // default ratio value
                         $json_object->{'attribute_7_name'},
-                        $json_object->{'attribute_7_value'}
+                        $json_object->{'attribute_7_value'},
+                        $json_object->{'attribute_8_name'},
+                        $json_object->{'attribute_8_value'}
                     );
                 }
                 else if (0 == strcmp('dataDefinitions', $type)) {
@@ -98,7 +100,9 @@ function get_reports_by_definition($definition_id) {
                         $json_object->{'last_revised'},
                         0, // default ratio value
                         $json_object->{'attribute_7_name'},
-                        $json_object->{'attribute_7_value'}
+                        $json_object->{'attribute_7_value'},
+                        $json_object->{'attribute_8_name'},
+                        $json_object->{'attribute_8_value'}
                     );
                 }
                 array_push($stmt_array, $obj);
