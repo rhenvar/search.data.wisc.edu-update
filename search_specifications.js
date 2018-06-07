@@ -46,7 +46,7 @@
         document.getElementById('loading').style.display = "block";
         document.getElementsByClassName('result_container')[0].style.display = "none";
         document.getElementById('dashboards_reports_table').style.display = "none";
-        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domains</th><th>URL</th></tr>";
+        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domains</th><th>Request Access</th></tr>";
         document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
         document.getElementById('pages_table').innerHTML = "";
 
@@ -114,30 +114,30 @@
             var urlCell = newRow.insertCell();
 
             idCell.innerHTML = report['specification_id'];
-            nameCell.innerHTML = report['specification_name'];
+            var isPublic = report['attribute_7_value'];
+
+            var urlVal = report['attribute_4_value'];
+            if (null == urlVal || "null" == urlVal) {
+                if (isPublic !== null || isPublic != 'no') {
+                    // insert lock icon
+                    var img = new Image();
+                    img.src= "/lock.png";
+                    img.className = "lock";
+                    nameCell.appendChild(img);
+                }
+                nameCell.innerHTML += report['specification_name'];
+            }
+            else {
+                nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
+            }
+
+
             typeCell.innerHTML = report['specification_type'];
             descriptionCell.innerHTML = report['description_val'];
             functionalCell.innerHTML = report['functional_areas'];
             functionalCell.innerHTML = report['functional_areas'].replace(",", ", ");
             functionalCell.classList.add("functional_area");
 
-            var urlVal = report['attribute_4_value'];
-            if (null == urlVal || "null" == urlVal) {
-                urlCell.innerHTML = "No links found";
-            }
-            else {
-                urlCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>Workbook URL</a>";
-            }
-
-/*
-            var dateVal = report['last_revised'];
-            if (null == dateVal || "null" == dateVal) {
-                dateCell.innerHTML = "No Last Revision Date";
-            }
-            else {
-                dateCell.innerHTML = report['last_revised'];
-            }
-            */
         }
     }
 

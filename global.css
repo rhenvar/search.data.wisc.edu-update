@@ -125,6 +125,10 @@ h3 {
     margin-left: 2%;
 }
 
+.lock {
+    float: right;
+}
+
 #main_logo {
     width: auto;
     height: 70px;
