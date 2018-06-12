@@ -42,8 +42,8 @@
 
         document.getElementById("loading").style.display = "block";
         document.getElementsByClassName("result_container")[0].style.display = "none";
-        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domains</th><th>URL</th></tr>";
-        document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Data Domains</th><th>Related Dashboards/Reports</th></tr>";
+        document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domain</th><th>URL</th></tr>";
+        document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Data Domain</th><th>Related Dashboards/Reports</th></tr>";
         document.getElementById('pages_table').innerHTML = "";
 
 
@@ -197,7 +197,7 @@
 
         subReportsTable.classList.add("sub_reports");
         subReportsTable.style.color = 'gray';
-        subReportsTable.innerHTML = "<tr><th>Name</th><th>Description</th><th>Data Domains</th><th>URL</th><tr>";
+        subReportsTable.innerHTML = "<tr><th>Name</th><th>Description</th><th>Data Domain</th><th>URL</th><tr>";
 
         var ajax = new XMLHttpRequest();
         var url = "search.php?subsearch=true&subsearch_type=reports_by_definition&definition_id=" + definitionId;

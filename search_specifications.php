@@ -32,6 +32,11 @@ readfile('./header.html');
         <h1>Office of Data Management &amp; Analytics Services</h1>
         <h2>Dashboards and Reports</h2>
     </div>
+    <div class='minibar'>
+    </div>
+    <div class='description'>
+	Welcome to <a href='https://kb.wisc.edu/msndata/'>[NAME]</a>, UW-Madison's portal for institutional administrative dashboards and reports. Clicking the name of a dashboard or report will take you to the dashboard or report. Those that require authentication have a [LOCK ICON]. UW-Madison employees my request access to restricted dashboards or reports by clicking the "Request Access" link for the dashboard or report. For additional information on this portal, see the [NAME] KnowledgeBase article.
+    </div>
 </div>
 
 <div class="search_container">
@@ -74,7 +79,7 @@ readfile('./header.html');
             <th>Name</th>
             <th>Type</th>
             <th>Description</th>
-            <th>Data Domains</th>
+            <th>Data Domain</th>
         </tr>
     </table>
 

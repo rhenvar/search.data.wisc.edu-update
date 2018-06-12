@@ -31,6 +31,10 @@ readfile('./header.html');
         <h1>Office of Data Management &amp; Analytics Services</h1>
         <h2>Glossary</h2>
     </div>
+    <div class='minibar'></div>
+    <div class='description'>
+        Welcome to UW-Madison's glossary of terms used in institutional administrative dashboards and reports. Here you will find functional definitions of terms, as well as dashboards and reports that use those terms. Click "Related Dashboards and Reports" to see a list and description of dashboards and reports using the term, where clicking the name will take you to the dashboard or report.
+    </div>
 </div>
 
 <div class="search_container">
@@ -42,7 +46,7 @@ readfile('./header.html');
     <br/>
     <br/>
     <div class="styled-select">
-        Data Domains:
+        Data Domain:
         <select id="functional_area">
             <option value="all">All</option>
         </select>
