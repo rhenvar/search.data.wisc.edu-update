@@ -197,7 +197,7 @@
 
         subReportsTable.classList.add("sub_reports");
         subReportsTable.style.color = 'gray';
-        subReportsTable.innerHTML = "<tr><th>Name</th><th>Description</th><th>Data Domain</th><th>URL</th><tr>";
+        subReportsTable.innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domain</th><th>Request URL</th></tr>";
 
         var ajax = new XMLHttpRequest();
         var url = "search.php?subsearch=true&subsearch_type=reports_by_definition&definition_id=" + definitionId;
@@ -218,29 +218,46 @@
             else {
                 // Populate subReportsTable
                 for (var i = 0; i < reportsJson.length; i++) {
-                    var report = reportsJson[i];
-                    var newRow = subReportsTable.insertRow();
+           var report = reportsJson[i];
+            var newRow = subReportsTable.insertRow();
 
-                    var idCell = newRow.insertCell();
-                    idCell.style.display = 'none';
-                    var nameCell = newRow.insertCell();
-                    var descriptionCell = newRow.insertCell();
-                    var functionalCell = newRow.insertCell();
-                    var urlCell = newRow.insertCell();
+            var idCell = newRow.insertCell();
+            idCell.style.display = 'none';
+            var nameCell = newRow.insertCell();
+            var typeCell = newRow.insertCell();
+            var descriptionCell = newRow.insertCell();
+            var functionalCell = newRow.insertCell();
+            var urlCell = newRow.insertCell();
 
-                    idCell.innerHTML = report['specification_id'];
-                    nameCell.innerHTML = report['specification_name'];
-                    descriptionCell.innerHTML = report['description_val'];
-                    functionalCell.innerHTML = report['functional_areas'];
-                    //relatedReports.innerHTML = "<a href='#sub_reports_overlay'>Related Dashboards/Reports</a>";
+            idCell.innerHTML = report['specification_id'];
+            var isPublic = report['attribute_7_value'];
 
-                    var urlVal = report['attribute_value'];
-                    if (null == urlVal || "null" == urlVal) {
-                        urlCell.innerHTML = "No links found";
-                    }
-                    else {
-                        urlCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>Workbook URL</a>";
-                    }
+            var urlVal = report['attribute_4_value'];
+            if (null == urlVal || "null" == urlVal) {
+                if (isPublic !== null || isPublic != 'no') {
+                    // insert lock icon
+                    var img = new Image();
+                    img.src= "/lock.png";
+                    img.className = "lock";
+                    nameCell.appendChild(img);
+                        //nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
+                    urlCell.innerHTML = report['attribute_8_value'];
+                }
+                //nameCell.innerHTML += report['specification_name'];
+                nameCell.innerHTML += "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
+            }
+            else {
+                nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
+                urlCell.innerHTML = "N/A";
+            }
+
+
+            typeCell.innerHTML = report['specification_type'];
+            descriptionCell.innerHTML = report['description_val'];
+            functionalCell.innerHTML = report['functional_areas'];
+            functionalCell.innerHTML = report['functional_areas'].replace(",", ", ");
+            functionalCell.classList.add("functional_area");
+
                 }
                 subResultsContainer.appendChild(subReportsTable);
                 //subResultsContainer.style.display = "block";
