@@ -197,7 +197,7 @@
 
         subReportsTable.classList.add("sub_reports");
         subReportsTable.style.color = 'gray';
-        subReportsTable.innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domain</th><th>Request URL</th></tr>";
+        subReportsTable.innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domain</th><th>Request Access</th></tr>";
 
         var ajax = new XMLHttpRequest();
         var url = "search.php?subsearch=true&subsearch_type=reports_by_definition&definition_id=" + definitionId;

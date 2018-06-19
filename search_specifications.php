@@ -35,7 +35,7 @@ readfile('./header.html');
     <div class='minibar'>
     </div>
     <div class='description'>
-	Welcome to <a href='https://kb.wisc.edu/msndata/'>[NAME]</a>, UW-Madison's portal for institutional administrative dashboards and reports. Clicking the name of a dashboard or report will take you to the dashboard or report. Those that require authentication have a [LOCK ICON]. UW-Madison employees my request access to restricted dashboards or reports by clicking the "Request Access" link for the dashboard or report. For additional information on this portal, see the [NAME] KnowledgeBase article.
+	Welcome to [NAME], UW-Madison's portal for institutional administrative dashboards and reports. Clicking the name of a dashboard or report will take you to the dashboard or report. Those that require authentication have a <img class='lock' src="/lock.png" id="paragraph_lock">. UW-Madison employees my request access to restricted dashboards or reports by clicking the "Request Access" link for the dashboard or report. For additional information on this portal, see the [NAME] <a href='https://kb.wisc.edu/msndata/'>KnowledgeBase article</a>.
     </div>
 </div>
 
