@@ -22,7 +22,7 @@ if (isset($_GET['store_all_specifications'])) {
             'port' => 26379
         ));
 
-        $result = get_results('', 'dashboardsReports', 'relevance', '');
+        $result = get_results('', 'dashboardsReports', 'relevance', '', 'none');
         usort($result, "cmp");
         $redis->set('all_specifications', json_encode($result));
         $redis->persist('all_specifications');
@@ -140,6 +140,23 @@ else if (isset($_GET['store_all_specification_types'])) {
         $results = get_specification_types();
 
         $redis->set('all_specification_types', json_encode($results));
+        print(json_encode($results));
+    }
+    catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
+else if (isset($_GET['store_all_restrictions'])) { 
+    header("Content-type: application/json");
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        $results = get_restrictions();
+
+        $redis->set('all_restrictions', json_encode($results));
         print(json_encode($results));
     }
     catch (Exception $e) {

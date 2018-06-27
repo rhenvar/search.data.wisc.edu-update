@@ -1,11 +1,12 @@
 <?php
 
 class QueryBuilder {
-    function __construct($search_input, $type, $sort_by, $functional_area) {
+    function __construct($search_input, $type, $sort_by, $functional_area, $access_restrictions) {
         $this->search_input = $search_input;
         $this->data_type = $type;
         $this->sort_by = $sort_by;
         $this->functional_area = $functional_area;
+	$this->access_restrictions = $access_restrictions;
 
         $this->functional_areas_table = array();
         $this->functional_areas_table['all'] = '';
@@ -22,10 +23,10 @@ class QueryBuilder {
      */
     function build_query() {
         // default: report lookup
-        $query = $this->query_specifications($this->search_input, $this->sort_by, $this->functional_area);
+        $query = $this->query_specifications($this->search_input, $this->sort_by, $this->functional_area, $this->access_restrictions);
 
         if (0 == strcmp($this->data_type, 'dashboardsReports')) {
-            $query = $this->query_specifications($this->search_input, $this->sort_by, $this->functional_area);
+            $query = $this->query_specifications($this->search_input, $this->sort_by, $this->functional_area, $this->access_restrictions);
         }
         else if (0 == strcmp($this->data_type, 'dataDefinitions')) {
             $query = $this->query_definitions($this->search_input, $this->sort_by, $this->functional_area);
@@ -39,7 +40,7 @@ class QueryBuilder {
     // Description
     // Functional Areas
     // Related Dashboards/Reports
-    function query_specifications($search_input, $sort_by, $functional_area) {
+    function query_specifications($search_input, $sort_by, $functional_area, $access_restrictions) {
         $column_like_array = array();
         $input = explode(" ", $search_input);
         usort($input, 'sort');
@@ -59,14 +60,18 @@ class QueryBuilder {
             $order_by = "- last_revised";
         }
 
+	if (0 == strcmp("none", $access_restrictions)) {
+	   $access_restrictions = '';
+	}
+
         return "
   SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM
-        (SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sv.version_create_date AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value
+        (SELECT sv.specification_id, MAX(sv.specification_version_id) AS max_version, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sv.version_create_date AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value, MAX(sva.version_id)
             FROM specification_versions sv
-                LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id
+                LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
 
-            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%'
-        GROUP BY sv.specification_id ORDER BY ratio_words DESC )
+            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%' AND sva.version_id = (SELECT MAX(version_id) FROM specification_version_attributes WHERE specification_id = sv.specification_id) 
+	    GROUP BY sv.specification_id ORDER BY ratio_words DESC )
     AS Results ORDER BY $order_by DESC";
 
     }
@@ -128,6 +133,10 @@ class QueryBuilder {
 
     function get_specification_types() {
         return "SELECT DISTINCT sv.specification_type FROM specification_versions sv WHERE sv.specification_name NOT LIKE 'IA%' AND sv.specification_type IS NOT NULL";
+    }
+
+    function get_restrictions() {
+	return "SELECT DISTINCT attribute_7_value AS access_restriction FROM specification_version_attributes WHERE attribute_7_value IS NOT NULL";
     }
 
     function sort($a, $b) {

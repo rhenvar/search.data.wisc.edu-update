@@ -13,5 +13,6 @@ readfile('./header.html');
 <input type="submit" id="store_specification_functional_areas" value="Store Specification Functional Areas">
 <input type="submit" id="store_definition_functional_areas" value="Store Definition Functional Areas">
 <input type="submit" id="store_specification_types" value="Store Specification Types">
+<input type="submit" id="store_restrictions" value="Store Access Restrictions">
 </body>
 </html>

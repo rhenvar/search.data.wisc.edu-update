@@ -35,7 +35,7 @@ readfile('./header.html');
     <div class='minibar'>
     </div>
     <div class='description'>
-	Welcome to [NAME], UW-Madison's portal for institutional administrative dashboards and reports. Clicking the name of a dashboard or report will take you to the dashboard or report. Those that require authentication have a <img class='lock' src="/lock.png" id="paragraph_lock">. UW-Madison employees my request access to restricted dashboards or reports by clicking the "Request Access" link for the dashboard or report. For additional information on this portal, see the [NAME] <a href='https://kb.wisc.edu/msndata/'>KnowledgeBase article</a>.
+	Welcome to [NAME], UW-Madison's portal for institutional administrative dashboards and reports. Clicking the name of a dashboard or report will take you to the dashboard or report. Those that require authentication have a <img class='lock' src="/lock.png" id="paragraph_lock">. UW-Madison employees my request access to restricted dashboards or reports by clicking the "Access Restrictions" link for the dashboard or report. For additional information on this portal, see the [NAME] <a href='https://kb.wisc.edu/msndata/'>KnowledgeBase article</a>.
     </div>
 </div>
 
@@ -54,10 +54,16 @@ readfile('./header.html');
         </select>
     </div>
     <div class="styled-select">
-        Specification Type:
+        Type:
         <select id="specification_type">
             <option value="all">All</option>
         </select>
+    </div>
+    <div class="styled-select">
+	Access Restrictions:
+	<select id="access_restrictions">
+	    <option value="none">All</option>
+	</select>
     </div>
     <div class="styled-select">
         Sort By:

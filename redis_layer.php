@@ -10,7 +10,7 @@ require "predis/autoload.php";
 Predis\Autoloader::register();
 
 
-function get_redis_specifications($search_input, $sort_by, $functional_area, $specification_type) {
+function get_redis_specifications($search_input, $sort_by, $functional_area, $specification_type, $access_restrictions) {
     $functional_areas_table = [
         "all" => "",
         "uwmadison" => "University of Wisconsin - Madison",
@@ -36,7 +36,7 @@ function get_redis_specifications($search_input, $sort_by, $functional_area, $sp
         if (strcmp('', $search_input) == 0 && strcmp('relevance', $sort_by) == 0) {
             $filtered_array = array();
             foreach ($results as $result) {
-                if (contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type)) {
+                if (contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type) && contains_area($result->attribute_7_value, $access_restrictions)) {
                     array_push($filtered_array, $result);
                 }
             }
@@ -207,6 +207,23 @@ function get_redis_specification_types() {
     }
 }
 
+function get_redis_restrictions() { 
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        if (!$redis->exists('all_restrictions')) {
+        }
+
+        $results = json_decode($redis->get('all_restrictions'));
+        return $results;
+    }
+    catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
 function cmp_ratio($a, $b) {
     $a_ratio = $a->ratio;
     $b_ratio = $b->ratio;
@@ -223,7 +240,7 @@ function cmp_date($a, $b) {
 }
 
 function contains_area($functional_areas, $area) {
-    if (strcmp("all", $area) == 0) {
+    if (strcmp("", $area) == 0 || strcmp("all", $area) == 0 || strcmp("none", $area) == 0) {
         return true;
     }
     $pos = strpos($functional_areas, $area);
@@ -279,6 +296,19 @@ function functional_areas_set() {
             'port' => 26379
         ));
         return $redis->exists('functional_areas');
+    }
+    catch (Exception $e) {
+        return false;
+    }
+}
+
+function restrictions_set() { 
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        return $redis->exists('all_restrictions');
     }
     catch (Exception $e) {
         return false;

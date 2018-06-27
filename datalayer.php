@@ -6,13 +6,13 @@ include_once 'query_builder.php';
 include_once 'relation.php';
 
 
-function get_results($search_input, $type, $sort_by, $functional_area) {
-    return get_results_by_relevance($search_input, $type, $sort_by, $functional_area);
+function get_results($search_input, $type, $sort_by, $functional_area, $access_restrictions) {
+    return get_results_by_relevance($search_input, $type, $sort_by, $functional_area, $access_restrictions);
 }
 
-function get_results_by_relevance($search_input, $type, $sort_by, $functional_area) {
+function get_results_by_relevance($search_input, $type, $sort_by, $functional_area, $access_restrictions) {
     try {
-        $qb = new QueryBuilder($search_input, $type, $sort_by, $functional_area);
+        $qb = new QueryBuilder($search_input, $type, $sort_by, $functional_area, $access_restrictions);
         $link = new PDO('mysql:host=reporting.datacookbook.com', 'uwmadison', '7d1&c9*bsF7A');
         $link->exec('USE itdb_production');
 
@@ -211,6 +211,32 @@ function get_specification_types() {
             foreach ($stmt as $database_result) {
                 $json_object = json_decode(json_encode($database_result));
                 array_push($stmt_array, $json_object->{'specification_type'});
+            }
+            return $stmt_array;
+        }
+        else {
+            return $link->errorInfo();
+        }
+    }
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+function get_restrictions() {
+    try {
+        $qb = new QueryBuilder("", "dashboardsReports", "relevance", "", "");
+        $link = new PDO('mysql:host=reporting.datacookbook.com', 'uwmadison', '7d1&c9*bsF7A');
+        $link->exec('USE itdb_production');
+
+        $stmt = $link->query($qb->get_restrictions(), PDO::FETCH_ASSOC);
+
+        if ($stmt) {
+            $stmt_array = array();
+
+            foreach ($stmt as $database_result) {
+                $json_object = json_decode(json_encode($database_result));
+                array_push($stmt_array, $json_object->{'access_restriction'});
             }
             return $stmt_array;
         }

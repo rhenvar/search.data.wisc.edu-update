@@ -9,6 +9,7 @@ $type = 'dashboardsReports';
 $functional_area = 'all';
 $specification_type = 'all';
 $page = 1;
+$access_restrictions = 'none';
 
 if (isset($_GET['get_specification_functional_areas'])) {
     $specification_functional_areas = get_redis_specification_functional_areas(); 
@@ -29,6 +30,14 @@ else if (isset($_GET['get_specification_types'])) {
     header("Content-type: application/json");
     print(json_encode($specification_types));
 }
+else if (isset($_GET['get_access_restrictions'])) {
+    $restrictions = get_redis_restrictions();
+
+    header("Content-type: application/json");
+    print(json_encode($restrictions));
+}
+
+// TODO: Implement redis calls for access_restrictions
 
 else {
     if (isset($_GET['subsearch']) && isset($_GET['subsearch_type'])) {
@@ -60,9 +69,12 @@ else {
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
         }
+	if (isset($_GET['access_restrictions'])) {
+	    $access_restrictions = $_GET['access_restrictions'];
+	}
 
         if (strcmp($type, "dashboardsReports") == 0 && specifications_set()) {
-            $result = get_redis_specifications($search_input, $sort_by, $functional_area, $specification_type);
+            $result = get_redis_specifications($search_input, $sort_by, $functional_area, $specification_type, $access_restrictions);
             header("Length: " . count($result));
             header("Page: " . $page);
             $result = array_slice($result, 25 * ($page - 1), 25);

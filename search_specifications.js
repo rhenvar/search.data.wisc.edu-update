@@ -8,6 +8,7 @@
     function setup() {
 	populateFunctionalAreas();
 	populateSpecificationTypes();
+	populateRestrictions();
 
 	var url_string = window.location.href;
 	var url = new URL(url_string);
@@ -21,6 +22,7 @@
 	document.getElementById('sort_by').onchange = function() { search() };
 	document.getElementById('functional_area').onchange = function() { search() };
 	document.getElementById('specification_type').onchange = function() { search() };
+	document.getElementById('access_restrictions').onchange = function() { search() };
 	document.getElementsByTagName("h1")[0].onclick = function() { window.open("https://data.wisc.edu"); }
 
 	$('#search_input').keyup(function(event) {
@@ -46,7 +48,7 @@
 	document.getElementById('loading').style.display = "block";
 	document.getElementsByClassName('result_container')[0].style.display = "none";
 	document.getElementById('dashboards_reports_table').style.display = "none";
-	document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domain</th><th>Request Access</th></tr>";
+	document.getElementById('dashboards_reports_table').innerHTML = "<tr><th>Name</th><th>Type</th><th>Description</th><th class='functional_area'>Data Domain</th><th>Access Restrictions</th></tr>";
 	document.getElementById('data_definitions_table').innerHTML =  "<tr><th>Name</th><th>Functional Definition</th><th>Functional Areas</th><th>Related Dashboards/Reports</th></tr>";
 	document.getElementById('pages_table').innerHTML = "";
 
@@ -66,7 +68,10 @@
 	var typeElement = document.getElementById('specification_type');
 	var typeVal = typeElement.options[typeElement.selectedIndex].value;
 
-	var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea + "&specification_type=" + typeVal + "&page=" + page;
+	var restrictions = document.getElementById('access_restrictions');
+	var r = restrictions.options[restrictions.selectedIndex].value;
+
+	var url = "search.php?search_input=" + searchInput + "&sort_by=" + sortBy + "&type=" + type + "&functional_area=" + functionalArea + "&specification_type=" + typeVal + "&page=" + page + "&access_restrictions=" + r;
 
 	ajax.open("GET", url, true);
 	ajax.onload = processResponse;
@@ -119,7 +124,7 @@
 	    var urlVal = report['attribute_4_value'];
 	    nameCell.innerHTML += "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
 	    //if (null == urlVal || "null" == urlVal) {
-	    if (isPublic != null && isPublic != 'no') {
+	    if (isPublic !== 'publicly_available' ) {
 		// insert lock icon
 		var img = new Image();
 		img.src= "/lock.png";
@@ -127,10 +132,20 @@
 		img.style.float = "right";
 		nameCell.appendChild(img);
 		//nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
-		urlCell.innerHTML = "<a href=" + report['attribute_8_value'] + "> Request Access </a>";
+		urlCell.innerHTML = "<a href=" + report['attribute_8_value'] + "> Access Restrictions </a>";
 	    }
-	    else {
-	    urlCell.innerHTML = "N/A";
+
+	    if (report['attribute_7_value'] == 'publicly_available') {
+		urlCell.innerHTML = "Publicly Available";
+	    }
+	    else if (report['attribute_7_value'] == 'all_employees') {
+		urlCell.innerHTML = "UW-Madison Employees (NetID Required)";
+	    }
+	    else if (report['attribute_7_value'] == "specific_audience") {
+		urlCell.innerHTML = "<a href=mailto:" + report['attribute_8_value'] + "> Request Access </a>";
+	    }
+	    else { 
+		urlCell.innerHTML = "<a href=" + report['attribute_8_value'] + "> Request Access </a>";
 	    }
 	    //nameCell.innerHTML += report['specification_name'];
 
@@ -337,4 +352,23 @@
 	    specificationTypes.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
 	}
     }
+
+    function populateRestrictions() {
+	var ajax = new XMLHttpRequest();
+	var url = "search.php?get_access_restrictions=true"; 
+	ajax.open("GET", url, true);
+	ajax.onload = processRestrictions;
+	ajax.send();
+    }
+
+    function processRestrictions() {
+	var functionalAreas = document.getElementById("access_restrictions");
+	var areas = JSON.parse(this.responseText);
+	for (var i = 0; i < areas.length; i++) {
+	    if (areas[i] !== null && areas[i] !== "yes" && areas[i] !== "no" && areas[i].length > 0) {
+		functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
+	    }
+	}
+    }
+
 })();
