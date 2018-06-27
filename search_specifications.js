@@ -142,12 +142,11 @@
 		urlCell.innerHTML = "UW-Madison Employees (NetID Required)";
 	    }
 	    else if (report['attribute_7_value'] == "specific_audience") {
-		urlCell.innerHTML = "<a href=mailto:" + report['attribute_8_value'] + "> Request Access </a>";
+		urlCell.innerHTML = "Specific/Limited Audience <br/> <a href=mailto:" + report['attribute_8_value'] + "> Request Access </a>";
 	    }
 	    else { 
-		urlCell.innerHTML = "<a href=" + report['attribute_8_value'] + "> Request Access </a>";
+		urlCell.innerHTML = report['attribute_7_value'] + "<br/> <a href=" + report['attribute_8_value'] + "> Request Access </a>";
 	    }
-	    //nameCell.innerHTML += report['specification_name'];
 
 
 	    typeCell.innerHTML = report['specification_type'];
@@ -366,9 +365,17 @@
 	var areas = JSON.parse(this.responseText);
 	for (var i = 0; i < areas.length; i++) {
 	    if (areas[i] !== null && areas[i] !== "yes" && areas[i] !== "no" && areas[i].length > 0) {
-		functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
+		functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + humanize(areas[i]) + "</option>";
 	    }
 	}
+    }
+
+    function humanize(str) {
+	var frags = str.split('_');
+	for (var i=0; i < frags.length; i++) {
+	    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+	}
+	return frags.join(' ');
     }
 
 })();

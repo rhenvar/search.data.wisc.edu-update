@@ -38,6 +38,10 @@ body {
     position: relative;
 }
 
+#access_restrictions {
+    width: 160px;
+}
+
 #bar_container: {
     display: block;
     width: 90%;
