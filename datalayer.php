@@ -74,7 +74,7 @@ function get_results_by_relevance($search_input, $type, $sort_by, $functional_ar
 function get_reports_by_definition($definition_id) {
     $type = 'dashboardsReports';
     try {
-        $qb = new QueryBuilder("", "dashboardsReports", "relevance", "");
+        $qb = new QueryBuilder("", "dashboardsReports", "relevance", "", '');
         $link = new PDO('mysql:host=reporting.datacookbook.com', 'uwmadison', '7d1&c9*bsF7A');
         $link->exec('USE itdb_production');
 

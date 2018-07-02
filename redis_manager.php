@@ -44,7 +44,7 @@ else if (isset($_GET['store_all_definitions'])) {
             'port' => 26379
         ));
 
-        $result = get_results('', 'dataDefinitions', 'relevance', '');
+        $result = get_results('', 'dataDefinitions', 'relevance', '', '');
         usort($result, "cmp_definitions");
         $redis->set('all_definitions', json_encode($result));
         $redis->persist('all_definitions');

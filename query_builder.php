@@ -1,7 +1,7 @@
 <?php
 
 class QueryBuilder {
-    function __construct($search_input, $type, $sort_by, $functional_area, $access_restrictions) {
+    function __construct($search_input, $type, $sort_by, $functional_area, $access_restrictions = '') {
         $this->search_input = $search_input;
         $this->data_type = $type;
         $this->sort_by = $sort_by;
@@ -70,7 +70,7 @@ class QueryBuilder {
             FROM specification_versions sv
                 LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
 
-            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%' AND sva.version_id = (SELECT MAX(version_id) FROM specification_version_attributes WHERE specification_id = sv.specification_id) 
+            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%' AND sva.version_id = (SELECT MAX(sva.version_id) FROM specification_version_attributes sva WHERE sva.specification_id = sv.specification_id) 
 	    GROUP BY sv.specification_id ORDER BY ratio_words DESC )
     AS Results ORDER BY $order_by DESC";
 
