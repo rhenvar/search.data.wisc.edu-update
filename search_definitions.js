@@ -218,51 +218,58 @@
             else {
                 // Populate subReportsTable
                 for (var i = 0; i < reportsJson.length; i++) {
-           var report = reportsJson[i];
-            var newRow = subReportsTable.insertRow();
+		    var report = reportsJson[i];
+		    var newRow = subReportsTable.insertRow();
 
-            var idCell = newRow.insertCell();
-            idCell.style.display = 'none';
-            var nameCell = newRow.insertCell();
-            var typeCell = newRow.insertCell();
-            var descriptionCell = newRow.insertCell();
-            var functionalCell = newRow.insertCell();
-            var urlCell = newRow.insertCell();
+		    var idCell = newRow.insertCell();
+		    idCell.style.display = 'none';
+		    var nameCell = newRow.insertCell();
+		    var typeCell = newRow.insertCell();
+		    var descriptionCell = newRow.insertCell();
+		    var functionalCell = newRow.insertCell();
+		    var urlCell = newRow.insertCell();
 
-            idCell.innerHTML = report['specification_id'];
-            var isPublic = report['attribute_7_value'];
+		    idCell.innerHTML = report['specification_id'];
+		    var isPublic = report['attribute_7_value'];
 
-            var urlVal = report['attribute_4_value'];
-            if (null == urlVal || "null" == urlVal) {
-                if (isPublic !== null || isPublic != 'no') {
-                    // insert lock icon
-                    var img = new Image();
-                    img.src= "/lock.png";
-                    img.className = "lock";
-                    nameCell.appendChild(img);
-                        //nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
-                    urlCell.innerHTML = report['attribute_8_value'];
-                }
-                //nameCell.innerHTML += report['specification_name'];
-                nameCell.innerHTML += "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
-            }
-            else {
-                nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + "</a>";
-                urlCell.innerHTML = "N/A";
-            }
+		    var urlVal = report['attribute_4_value'];
+		    nameCell.innerHTML += "<a href='" + urlVal + "' target='_blank'>" + report['specification_name'] + $
+		    //if (null == urlVal || "null" == urlVal) {
+		    if (isPublic !== 'publicly_available' ) {
+				// insert lock icon
+			    var img = new Image();
+			    img.src= "/lock.png";
+			    img.className = "lock";
+			    img.style.float = "right";
+			    nameCell.appendChild(img);
+			    //nameCell.innerHTML = "<a href='" + urlVal + "' target='_blank'>" + report['specification_name$
+			    urlCell.innerHTML = "<a href=" + report['attribute_8_value'] + "> Access Restrictions </a>";
+		    }
+
+		    if (report['attribute_7_value'] == 'publicly_available') {
+			urlCell.innerHTML = "Publicly Available";
+		    }
+		    else if (report['attribute_7_value'] == 'all_employees') {
+			urlCell.innerHTML = "UW-Madison Employees (NetID Required)";
+		    }
+		    else if (report['attribute_7_value'] == "specific_audience") {
+			urlCell.innerHTML = "Specific/Limited Audience <br/> <a href=mailto:" + report['attribute_8_value'] + "> Request Access </a>";
+		    }
+		    else {
+			urlCell.innerHTML = humanize(report['attribute_7_value']) + "<br/> <a href=" + report['attribute_8_value'] + "> Request Access </a>";
+		    }
 
 
-            typeCell.innerHTML = report['specification_type'];
-            descriptionCell.innerHTML = report['description_val'];
-            functionalCell.innerHTML = report['functional_areas'];
-            functionalCell.innerHTML = report['functional_areas'].replace(",", ", ");
-            functionalCell.classList.add("functional_area");
+		    typeCell.innerHTML = report['specification_type'];
+		    descriptionCell.innerHTML = report['description_val'];
+		    functionalCell.innerHTML = report['functional_areas'];
+		    functionalCell.innerHTML = report['functional_areas'].replace(",", ", ");
+		    functionalCell.classList.add("functional_area");
 
                 }
                 subResultsContainer.appendChild(subReportsTable);
                 //subResultsContainer.style.display = "block";
                 $('#sub_reports_overlay').fadeIn();
-                
             }
         };
         ajax.send();
@@ -327,4 +334,12 @@
             functionalAreas.innerHTML += "<option value='" + areas[i] + "'>" + areas[i] + "</option>";
         }
     }
+    function humanize(str) {
+	var frags = str.split('_');
+	for (var i=0; i < frags.length; i++) {
+	    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+	}
+	return frags.join(' ');
+    }
+
 })();
