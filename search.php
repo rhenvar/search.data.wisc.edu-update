@@ -44,7 +44,8 @@ else {
         $subsearch_type = $_GET['subsearch_type'];
         if (0 == strcmp("reports_by_definition", $subsearch_type)) {
             $definition_id = $_GET['definition_id'];
-            $result = get_reports_by_definition($definition_id);
+            //$result = get_reports_by_definition($definition_id);
+	    $result = get_redis_specifications_by_definition($definition_id);
 
             header("Content-type: application/json");
             print(json_encode($result));

@@ -119,7 +119,8 @@ class QueryBuilder {
     }
 
     function get_all_relations() {
-        return "SELECT specification_id, definition_id FROM specification_related_definitions WHERE specification_name NOT LIKE 'IA%' AND definition_name NOT LIKE 'IA%' GROUP BY specification_id";
+        //return "SELECT specification_id, definition_id FROM specification_related_definitions WHERE specification_name NOT LIKE 'IA%' AND definition_name NOT LIKE 'IA%' GROUP BY specification_id";
+	return "SELECT DISTINCT sv.specification_id, srd.definition_id FROM specification_versions sv JOIN specification_related_definitions srd ON srd.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%'";
     }
 
     // Select functional areas with existing entries
