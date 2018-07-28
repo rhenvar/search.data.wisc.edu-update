@@ -38,7 +38,8 @@ function get_results_by_relevance($search_input, $type, $sort_by, $functional_ar
                         $json_object->{'attribute_7_name'},
                         $json_object->{'attribute_7_value'},
                         $json_object->{'attribute_8_name'},
-                        $json_object->{'attribute_8_value'}
+			$json_object->{'attribute_8_value'},
+			$json_object->{'additional_details'}
                     );
                 }
                 else if (0 == strcmp('dataDefinitions', $type)) {

@@ -152,6 +152,65 @@ function get_redis_definitions($search_input, $sort_By, $functional_area) {
     }
 }
 
+function get_redis_specification_by_id($specification_id) {
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        if (!$redis->exists('all_specifications')) {
+            // Load all specifications into Redis?
+        }
+
+        $results = json_decode($redis->get('all_specifications'));
+
+	foreach ($results as $result) {
+	    if ($result->specification_id == $specification_id) {
+		return $result;
+	    }
+	}
+	return null;
+    }
+    catch (Exception $e) {
+	return $e->getMessage();
+    }
+}
+
+function get_redis_definitions_by_specification_id($specification_id) {
+    try {
+        $redis = new Predis\Client(array(
+            'host' => 'localhost',
+            'port' => 26379
+        ));
+        if (!$redis->exists('all_specifications')) {
+            // Load all specifications into Redis?
+        }
+
+        $relations = json_decode($redis->get('all_relations'));
+	$definitions = json_decode($redis->get('all_definitions'));
+
+	$definition_ids = array();
+	foreach ($relations as $relation) {
+	    if ($specification_id == $relation->specification_id) {
+		array_push($definition_ids, $relation->definition_id);
+	    }
+	}
+
+	$definition_results = array();
+	foreach ($definitions as $definition) {
+	    foreach ($definition_ids as $definition_id) {
+		if ($definition->definition_id == $definition_id) {
+		    array_push($definition_results, $definition);
+		}
+	    }
+	}
+	return $definition_results;
+    }
+    catch (Exception $e) {
+	return $e->getMessage();
+    }
+}
+
 function get_redis_specifications_by_definition($definition_id) {
     try {
         $redis = new Predis\Client(array(

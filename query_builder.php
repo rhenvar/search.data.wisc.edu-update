@@ -66,11 +66,11 @@ class QueryBuilder {
 
         return "
   SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM
-        (SELECT sv.specification_id, MAX(sv.specification_version_id) AS max_version, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sv.version_create_date AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value, MAX(sva.version_id)
+        (SELECT sv.specification_id, MAX(sv.specification_version_id) AS max_version, sv.specification_name, sv.specification_type, sv.description, sv.additional_details, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sv.version_create_date AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value, MAX(sva.version_id)
             FROM specification_versions sv
                 LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
 
-            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sv.functional_areas LIKE '%$functional_resolved%' AND sva.version_id = (SELECT MAX(sva.version_id) FROM specification_version_attributes sva WHERE sva.specification_id = sv.specification_id) 
+            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sva.attribute_6_value != 1 AND sv.functional_areas LIKE '%$functional_resolved%' AND sva.version_id = (SELECT MAX(sva.version_id) FROM specification_version_attributes sva WHERE sva.specification_id = sv.specification_id) 
 	    GROUP BY sv.specification_id ORDER BY ratio_words DESC )
     AS Results ORDER BY $order_by DESC";
 
@@ -109,13 +109,17 @@ class QueryBuilder {
         }
     }
 
+    /**
+     * DEPRECATED:
+     * Retrieving related reports from a redis relation mapping
+     */
     // Name
     // Type
     // Description
     // Functional Areas
     // Related Dashboards/Reports
     function get_reports_by_definition($definition_id) {
-        return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value FROM specification_versions sv JOIN specification_related_definitions srd on srd.definition_id = $definition_id AND srd.specification_id = sv.specification_id LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%' AND sva.version_id = (SELECT MAX(sva.version_id) FROM specification_version_attributes sva WHERE sva.specification_id = sv.specification_id) GROUP BY sv.specification_id ORDER BY sv.specification_name ASC";
+        return "SELECT DISTINCT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sva.attribute_5_value AS last_revised, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value FROM specification_versions sv JOIN specification_related_definitions srd on srd.definition_id = $definition_id AND srd.specification_id = sv.specification_id LEFT JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id WHERE sv.specification_name NOT LIKE 'IA%' GROUP BY sv.specification_id ORDER BY sv.specification_name ASC";
     }
 
     function get_all_relations() {
