@@ -43,17 +43,21 @@ function get_redis_specifications($search_input, $sort_by, $functional_area, $sp
             return $filtered_array;
         }
         else {
-            if (strcmp('dates', $sort_by) == 0) {
+
+	    //*** Needs to work in tandem with input_filter
+            if (strcmp('', $search_input) == 0 && strcmp('dates', $sort_by) == 0) {
                 $filtered_array = array();
                 foreach ($results as $result) {
-                    if (contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type)) {
+                    if (contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type) && contains_area($result->attribute_7_value, $access_restrictions)) {
                         array_push($filtered_array, $result);
                     }
                 }
                 usort($filtered_array, "cmp_date");
                 return $filtered_array;
             }
-            if (strcmp('', $search_input) != 0 && strcmp('relevance', $sort_by) == 0) {
+	    //***
+
+            if (strcmp('', $search_input) != 0 /*&& strcmp('relevance', $sort_by) == 0*/) {
                 $filtered_array = array();
 
                 $input_array = explode(' ', $search_input);
@@ -70,13 +74,19 @@ function get_redis_specifications($search_input, $sort_by, $functional_area, $sp
                             }
                         }
                     }
-                    if ($word_occurrences > 0 && contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type)) {
+                    if ($word_occurrences > 0 && contains_area($result->functional_areas, $functional_area) && contains_area($result->specification_type, $specification_type) && contains_area($result->attribute_7_value, $access_restrictions)) {
                         $ratio = $word_occurrences / (float) $specification_word_count;
                         $result->ratio = $ratio;
                         array_push($filtered_array, $result);
                     }
                 }
-                usort($filtered_array, "cmp_ratio");
+		// IDEA: Sort by cmp_date if $sort_by == newest first, cmp_ratio if sort_by == relevance
+		if (strcmp('relevance', $sort_by) == 0) {
+		    usort($filtered_array, "cmp_ratio");
+		}
+		else if (strcmp('dates', $sort_by) == 0) {
+		    usort($filtered_array, "cmp_date");
+		}
                 return $filtered_array;
             }
         }
