@@ -154,9 +154,16 @@ else if (isset($_GET['store_all_restrictions'])) {
             'host' => 'localhost',
             'port' => 26379
         ));
-        $results = get_restrictions();
 
-        $redis->set('all_restrictions', json_encode($results));
+	// Retrieve access restrictions from specifications
+	$specifications = json_decode($redis->get('all_specifications'));
+	
+	$restrictions = array();
+	foreach ($specifications as $specification) {
+	    $restrictions[$specification->attribute_7_value] = null;
+	}
+	$results = array_keys($restrictions);
+	$redis->set('all_restrictions', json_encode($results));
         print(json_encode($results));
     }
     catch (Exception $e) {

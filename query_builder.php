@@ -140,8 +140,9 @@ class QueryBuilder {
         return "SELECT DISTINCT sv.specification_type FROM specification_versions sv WHERE sv.specification_name NOT LIKE 'IA%' AND sv.specification_type IS NOT NULL";
     }
 
+    // DEPRECATED
     function get_restrictions() {
-	return "SELECT DISTINCT attribute_7_value AS access_restriction FROM specification_version_attributes WHERE attribute_7_value IS NOT NULL";
+	return "SELECT DISTINCT sva.attribute_7_value AS access_restriction, MAX(sv.specification_id) FROM specification_version_attributes sva JOIN specification_versions sv ON sv.specification_id = sva.specification_id WHERE sv.specification_name NOT LIKE 'IA%' AND sva.attribute_7_value IS NOT NULL GROUP BY sv.specification_id";
     }
 
     function sort($a, $b) {

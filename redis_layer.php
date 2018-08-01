@@ -329,8 +329,7 @@ function get_redis_restrictions() {
         ));
         if (!$redis->exists('all_restrictions')) {
         }
-
-        $results = json_decode($redis->get('all_restrictions'));
+	$results = json_decode($redis->get('all_restrictions'));
         return $results;
     }
     catch (Exception $e) {
