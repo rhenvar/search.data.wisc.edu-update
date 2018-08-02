@@ -32,44 +32,77 @@ readfile('./header.html');
 <br/>
 
 <h2> <?= $specification->specification_name ?></h2>
-<table id="dashboards_reports_table">
-    <tr>
-	<th>Name</th>
-	<th>Type</th>
-	<th>Description</th>
-	<th>Important Notes</th>
-	<th class='functional_area'>Data Domain</th>
-    </tr>
-    <tr>
-	<td><?= $specification->specification_name ?></td>
-	<td><?= $specification->specification_type ?></td>
-	<td><?= $specification->description_val ?></td>
-	<td><?= $specification->additional_details ?></td>
-	<td><?= $specification->functional_areas ?></td>
-    </tr>
-</table>
+<div class="api_tables">
+    <table id="dashboards_reports_table">
+	<tr>
+	    <th>Name</th>
+	</tr>
+	<tr>
+	    <td class="list_td"><?= $specification->specification_name ?></td>
+	</tr>
+    </table>
+    <table id="dashboards_reports_table">
+	<tr>
+	    <th>Type</th>
+	</tr>
+	<tr>
+	    <td class="list_td"><?= $specification->specification_type ?></td>
+	</tr>
+    </table>
+    <table id="dashboards_reports_table">
+	<tr>
+	    <th>Description</th>
+	</tr>
+	<tr>
+	    <td class="list_td"><?= $specification->description_val ?></td>
+	</tr>
+    </table>
+    <table id="dashboards_reports_table">
+	<tr>
+	    <th>Important Notes</th>
+	</tr>
+	<tr>
+	    <td class="list_td"><?= $specification->additional_details ?></td>
+	</tr>
+    </table>
+    <table id="dashboards_reports_table">
+	<tr>
+	    <th>Data Domain</th>
+	</tr>
+	<tr>
+	    <td class="list_td"><?= $specification->functional_areas ?></td>
+	</tr>
+    </table>
+</div>
+
 
 <br/>
 <br/>
 
 <h2>Related Definitions</h2>
-<?php if (count($definitions) > 0)  { ?>
-    <table id="data_definitions_table">
-	<tr>
-	    <th>Name</th>
-	    <th>Functional Definition</th>
-	    <th>Data Domain</th>
-	</tr>
-	<?php foreach ($definitions as $definition) { ?>
-	<tr>
-	    <td><?= $definition->definition_name ?></td>
-	    <td><?= $definition->functional_definition ?></td>
-	    <td><?= $definition->functional_areas ?></td>
-	</tr>
-	<?php } ?>
-    </table>
-<?php } else { ?>
-	<h3>No Related Definitions</h3>
-<?php } ?>
+<div class="api_tables">
+    <?php if (count($definitions) > 0)  { ?>
+	<table id="data_definitions_table">
+	    <tr>
+		<th>Name</th>
+		<th>Functional Definition</th>
+		<th>Data Domain</th>
+	    </tr>
+	    <?php foreach ($definitions as $definition) { ?>
+	    <tr>
+		<td><?= $definition->definition_name ?></td>
+		<td><?= $definition->functional_definition ?></td>
+		<td><?= $definition->functional_areas ?></td>
+	    </tr>
+	    <?php } ?>
+	</table>
+    <?php } else { ?>
+	    <h3>No Related Definitions</h3>
+    <?php } ?>
+</div>
+
+<div class="uw-global-footer">
+  <p>&copy; 2018 Board of Regents of the University of Wisconsin System</p>
+</div>
 </body>
 </html>

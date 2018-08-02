@@ -254,7 +254,7 @@
 			urlCell.innerHTML = "Specific/Limited Audience <br/> <a href=mailto:" + report['attribute_8_value'] + "> Request Access </a>";
 		    }
 		    else {
-			urlCell.innerHTML = humanize(report['attribute_7_value']) + "<br/> <a href=" + report['attribute_8_value'] + "> Request Access </a>";
+			urlCell.innerHTML = humanize(report['attribute_7_value']) + "<br/> <a href=" + report['attribute_8_value'] + " target='_blank'> Request Access </a>";
 		    }
 
 
