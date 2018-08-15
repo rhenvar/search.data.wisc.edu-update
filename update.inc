@@ -1,5 +1,5 @@
 <?php
-
+/*
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
@@ -97,4 +97,5 @@ function cmp($a, $b) {
 function cmp_definitions($a, $b) {
     return strcmp($a->definition_name, $b->definition_name);
 }
+ */
 ?>
