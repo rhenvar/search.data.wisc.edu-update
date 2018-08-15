@@ -77,7 +77,6 @@ body {
 
 #sub_reports_overlay {
     width: 60%;
-    height: 90%;
     margin: 0 auto;
     position: fixed;
     z-index: 10;
