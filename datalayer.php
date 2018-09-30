@@ -27,6 +27,7 @@ function get_results_by_relevance($search_input, $type, $sort_by, $functional_ar
 
                 if (0 == strcmp('dashboardsReports', $type)) {
                     $obj = new Specification($json_object->{'specification_id'},
+			$json_object->{'specification_version_id'},
                         $json_object->{'specification_name'},
                         $json_object->{'specification_type'},
                         $json_object->{'description'},

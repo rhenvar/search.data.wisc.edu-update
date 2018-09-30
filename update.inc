@@ -1,5 +1,4 @@
 <?php
-/*
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
@@ -37,6 +36,7 @@ try {
     print json_encode('Number of definitions stored: ' . count($result));
     print json_encode($redis->get('all_definitions'));
 
+    /*
     // Storing Relations
     $result = get_all_relations();
     $redis->set('all_relations', json_encode($result));
@@ -84,6 +84,7 @@ try {
     $results = array_keys($restrictions);
     $redis->set('all_restrictions', json_encode($results));
     print(json_encode($results));
+ */
 }
 
 catch (Exception $e) {

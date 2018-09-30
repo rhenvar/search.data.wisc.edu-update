@@ -159,7 +159,9 @@
     }
 
     function populatePageTable(count, currPage) {
-	var pages = count <= 25 ? 1 : count / 25 + 1;
+	var pages = count <= 25 ? 1 : count / 25;
+	if (count > 25 && count % 25 != 0) pages++;
+
 	var pageTable = document.getElementById("pages_table");
 	var pageRow = pageTable.insertRow();
 
