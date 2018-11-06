@@ -28,13 +28,13 @@ try {
     print json_encode($redis->get('all_specifications'));
 
     // Storing Definitions
-    $result = get_results('', 'dataDefinitions', 'relevance', '', '');
-    usort($result, "cmp_definitions");
-    $redis->set('all_definitions', json_encode($result));
-    $redis->persist('all_definitions');
-    print json_encode('Redis definitions stored?: ' . $redis->exists('all_definitions'));
-    print json_encode('Number of definitions stored: ' . count($result));
-    print json_encode($redis->get('all_definitions'));
+    // $result = get_results('', 'dataDefinitions', 'relevance', '', '');
+    // usort($result, "cmp_definitions");
+    // $redis->set('all_definitions', json_encode($result));
+    // $redis->persist('all_definitions');
+    // print json_encode('Redis definitions stored?: ' . $redis->exists('all_definitions'));
+    // print json_encode('Number of definitions stored: ' . count($result));
+    // print json_encode($redis->get('all_definitions'));
 
     /*
     // Storing Relations

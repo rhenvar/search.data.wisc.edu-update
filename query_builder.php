@@ -65,13 +65,14 @@ class QueryBuilder {
 	}
 
         return "
-  SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM
-        (SELECT sv.specification_id, MAX(sv.specification_version_id) AS max_version, sv.specification_name, sv.specification_type, sv.description, sv.additional_details, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sv.version_create_date AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words, sva.version_id as specification_version_id, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value, MAX(sva.version_id)
+       SELECT *, count_words / (ratio_words * 1.0) AS ratio FROM 
+        (SELECT sv.specification_id, sv.specification_name, sv.specification_type, sv.description, sv.additional_details, sv.functional_areas, sva.attribute_4_name, sva.attribute_4_value, sv.version_create_date AS last_revised, (" . join(" + ", $column_like_array) . ") AS count_words, (LENGTH(sv.specification_name) + 1 - LENGTH(REPLACE(sv.specification_name, ' ', ''))) AS ratio_words, sva.version_id as specification_version_id, sva.attribute_7_name, sva.attribute_7_value, sva.attribute_8_name, sva.attribute_8_value, MAX(sva.version_id)
             FROM specification_versions sv
-                JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
+	    JOIN specification_version_attributes sva ON sva.specification_id = sv.specification_id 
+	    WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sva.attribute_6_value != 1 AND sv.functional_areas LIKE '%$functional_resolved%'  
+	    AND sva.version_id = (SELECT MAX(sva.version_id) FROM specification_version_attributes sva WHERE sva.specification_id = sv.specification_id)
+	    GROUP BY sv.specification_id)
 
-            WHERE (" . join(" OR ", $column_like_array) . ") AND sv.specification_name NOT LIKE 'IA%' AND sva.attribute_6_value != 1 AND sv.functional_areas LIKE '%$functional_resolved%' AND sva.version_id = (SELECT MAX(sva.version_id) FROM specification_version_attributes sva WHERE sva.specification_id = sv.specification_id) 
-	    GROUP BY sv.specification_id ORDER BY ratio_words DESC )
     AS Results ORDER BY $order_by DESC";
 
     }
