@@ -24,8 +24,10 @@ if (isset($_GET['store_all_specifications'])) {
 
         $result = get_results('', 'dashboardsReports', 'relevance', '', 'none');
         usort($result, "cmp");
+
         $redis->set('all_specifications', json_encode($result));
         $redis->persist('all_specifications');
+
         print json_encode('Redis specifications stored?: ' .  $redis->exists('all_specifications'));
         print json_encode('Number of specifications stored: ' . count($result));
         print json_encode($redis->get('all_specifications'));

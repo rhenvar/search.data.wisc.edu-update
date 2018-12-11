@@ -20,5 +20,5 @@
         var searchValue = document.getElementById("search_input").value;
         window.location.replace("search_results.php?search_input=" + searchValue + "&search_type=dashboardsReports");
     }
-
+// Comment
 })();
